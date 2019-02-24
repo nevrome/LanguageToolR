@@ -11,8 +11,9 @@ languagetool(x = c(), input_file = NA_character_,
   auto_detect_language = FALSE, mothertongue = NA_character_,
   disabled_rules = c(), enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
-  profile = FALSE, verbose = FALSE, rule_file = NA_character_,
-  false_friends_file = NA_character_,
+  bitext = FALSE, profile = FALSE, verbose = FALSE,
+  rule_file = NA_character_, false_friends_file = NA_character_,
+  bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
   word2vec_model_directory = NA_character_,
   neural_network_model_directory = NA_character_,
@@ -56,6 +57,9 @@ activate false-friend checking}
 
 \item{enabled_categories}{Integer vector. List of category ids to be enabled}
 
+\item{bitext}{Logical. Check bilingual texts with a tab-separated input file,
+see http://languagetool.wikidot.com/checking-translations-bilingual-texts}
+
 \item{profile}{Logical. Print performance measurements}
 
 \item{verbose}{Logical. Print text analysis (sentences, part-of-speech tags)}
@@ -65,6 +69,9 @@ contains a known language code, it is used in addition of standard rules}
 
 \item{false_friends_file}{Character. Use external false friend file to be used 
 along with the built-in rules}
+
+\item{bitext_rules_file}{Character. Use external bitext XML rule file (useful only in 
+bitext mode)}
 
 \item{language_model_directory}{Character. A directory with e.g. 'en' sub directory 
 (i.e. a language code) that contains '1grams'...'3grams' sub directories with Lucene 

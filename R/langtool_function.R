@@ -25,12 +25,16 @@
 #' @param enabled_only Logical. Disable all rules except those enabled explicitly
 #' @param disabled_categories Integer vector. List of category ids to be disabled
 #' @param enabled_categories Integer vector. List of category ids to be enabled
+#' @param bitext Logical. Check bilingual texts with a tab-separated input file,
+#' see http://languagetool.wikidot.com/checking-translations-bilingual-texts
 #' @param profile Logical. Print performance measurements
 #' @param verbose Logical. Print text analysis (sentences, part-of-speech tags)
 #' @param rule_file Character. Use an additional grammar file; if the filename 
 #' contains a known language code, it is used in addition of standard rules
 #' @param false_friends_file Character. Use external false friend file to be used 
 #' along with the built-in rules
+#' @param bitext_rules_file Character. Use external bitext XML rule file (useful only in 
+#' bitext mode)
 #' @param language_model_directory Character. A directory with e.g. 'en' sub directory 
 #' (i.e. a language code) that contains '1grams'...'3grams' sub directories with Lucene 
 #' indexes with ngram occurrence counts; activates the confusion rule if supported
@@ -63,10 +67,12 @@ languagetool <- function(
   enabled_only = FALSE,
   disabled_categories = c(),
   enabled_categories = c(),
+  bitext = FALSE,
   profile = FALSE,
   verbose = FALSE,
   rule_file = NA_character_,
   false_friends_file = NA_character_,
+  bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
   word2vec_model_directory = NA_character_,
   neural_network_model_directory = NA_character_,
@@ -102,10 +108,12 @@ languagetool <- function(
       ifelse(enabled_only, paste("--enabledonly"), ""),
       ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
       ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
+      ifelse(bitext, paste("--bitext"), ""),
       ifelse(profile, paste("--profile"), ""),
       ifelse(verbose, paste("--verbose"), ""),
       ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
       ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
+      ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
       ifelse(!is.na(language_model_directory), paste("--languagemodel", language_model_directory), ""),
       ifelse(!is.na(word2vec_model_directory), paste("--word2vecmodel", word2vec_model_directory), ""),
       ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
