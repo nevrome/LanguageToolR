@@ -4,6 +4,7 @@
 \alias{languagetool}
 \alias{list_languages}
 \alias{version}
+\alias{test_text}
 \title{LanguageTool API function}
 \usage{
 languagetool(x = c(), input_file = NA_character_,
@@ -15,7 +16,7 @@ languagetool(x = c(), input_file = NA_character_,
   enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
   tagger_only = FALSE, list_unknown = FALSE, bitext = FALSE,
-  profile = FALSE, verbose = FALSE, version = FALSE,
+  profile = FALSE, verbose = FALSE, version = FALSE, apply = FALSE,
   rule_file = NA_character_, false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
@@ -82,6 +83,9 @@ see http://languagetool.wikidot.com/checking-translations-bilingual-texts}
 
 \item{version}{Logical. Print LanguageTool version number}
 
+\item{apply}{Logical. automatically apply suggestions if available, printing result. 
+NOTE: only use with very robust rules, as this will otherwise introduce new errors}
+
 \item{rule_file}{Character. Use an additional grammar file; if the filename 
 contains a known language code, it is used in addition of standard rules}
 
@@ -115,4 +119,8 @@ Tibble (data.frame) with the output of languagetool parsed from json
 Provides an API for the 
 \link[http://wiki.languagetool.org/command-line-options]{LanguageTool CLI tool} 
 for spelling, grammar and language checking.
+}
+\examples{
+languagetool(test_text)
+
 }

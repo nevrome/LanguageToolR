@@ -59,6 +59,9 @@
 #' @return Tibble (data.frame) with the output of languagetool parsed from json
 #' @rdname languagetool
 #' 
+#' @examples 
+#' languagetool(test_text)
+#' 
 #' @export
 languagetool <- function( 
   x = c(),
@@ -219,3 +222,7 @@ list_languages <- function(x) {
 version <- function(x) {
   languagetool(version = TRUE)
 }
+
+#' @rdname languagetool
+#' @name test_text
+NULL
