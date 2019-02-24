@@ -2,7 +2,7 @@
 % Please edit documentation in R/langtool_function.R
 \name{languagetool}
 \alias{languagetool}
-\alias{list_languages}
+\alias{languages}
 \alias{version}
 \alias{test_text}
 \title{LanguageTool API function}
@@ -25,7 +25,7 @@ languagetool(x = c(), input_file = NA_character_,
   fast_text_model_file = NA_character_,
   fast_text_binary_file = NA_character_)
 
-list_languages(x)
+languages(x)
 
 version(x)
 }
@@ -113,11 +113,12 @@ see https://fasttext.cc/docs/en/language-identification.html}
 see https://fasttext.cc/docs/en/support.html}
 }
 \value{
-Tibble (data.frame) with the output of languagetool parsed from json
+Tibble (data.frame) with the output of languagetool parsed from json. 
+Some options yield special outputs
 }
 \description{
-Provides an API for the 
-\link[http://wiki.languagetool.org/command-line-options]{LanguageTool CLI tool} 
+Provides a wrapper for the 
+\href{http://wiki.languagetool.org/command-line-options}{LanguageTool CLI tool} 
 for spelling, grammar and language checking.
 }
 \examples{

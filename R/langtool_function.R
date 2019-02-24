@@ -1,7 +1,7 @@
 #' LanguageTool API function
 #' 
-#' Provides an API for the 
-#' \link[http://wiki.languagetool.org/command-line-options]{LanguageTool CLI tool} 
+#' Provides a wrapper for the 
+#' \href{http://wiki.languagetool.org/command-line-options}{LanguageTool CLI tool} 
 #' for spelling, grammar and language checking.
 #'
 #' @param x Character vector. Text to analyse
@@ -56,7 +56,8 @@
 #' @param fast_text_binary_file Character. fasttext executable, 
 #' see https://fasttext.cc/docs/en/support.html
 #'
-#' @return Tibble (data.frame) with the output of languagetool parsed from json
+#' @return Tibble (data.frame) with the output of languagetool parsed from json. 
+#' Some options yield special outputs
 #' @rdname languagetool
 #' 
 #' @examples 
@@ -213,7 +214,7 @@ languagetool <- function(
 
 #' @rdname languagetool
 #' @export
-list_languages <- function(x) {
+languages <- function(x) {
   languagetool(list_languages = TRUE)
 }
 

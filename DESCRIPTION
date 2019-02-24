@@ -1,10 +1,13 @@
 Package: LanguageToolR
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
+Title: Provides a wrapper for the LanguageTool CLI tool for spelling, grammar and language checking
+Version: 0.1.0
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.5.2)
-License: What license is it under?
+Description: The wrapper is complete and offers all current functions of the CLI tool. More information can be found in the LanguageTool Wiki: wiki.languagetool.org. 
+Depends: R (>= 3.5.0)
+License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Imports:
+    rjson (>= 0.2.20),
+    tibble (>= 1.4.2)
