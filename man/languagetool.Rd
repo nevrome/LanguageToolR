@@ -13,8 +13,9 @@ languagetool(x = c(), input_file = NA_character_,
   mothertongue = NA_character_, disabled_rules = c(),
   enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
-  bitext = FALSE, profile = FALSE, verbose = FALSE,
-  rule_file = NA_character_, false_friends_file = NA_character_,
+  tagger_only = FALSE, bitext = FALSE, profile = FALSE,
+  verbose = FALSE, rule_file = NA_character_,
+  false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
   word2vec_model_directory = NA_character_,
@@ -62,6 +63,9 @@ activate false-friend checking}
 \item{disabled_categories}{Integer vector. List of category ids to be disabled}
 
 \item{enabled_categories}{Integer vector. List of category ids to be enabled}
+
+\item{tagger_only}{Logical. Don't check, but only print text analysis (sentences, 
+part-of-speech tags)}
 
 \item{bitext}{Logical. Check bilingual texts with a tab-separated input file,
 see http://languagetool.wikidot.com/checking-translations-bilingual-texts}

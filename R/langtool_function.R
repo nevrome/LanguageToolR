@@ -26,6 +26,8 @@
 #' @param enabled_only Logical. Disable all rules except those enabled explicitly
 #' @param disabled_categories Integer vector. List of category ids to be disabled
 #' @param enabled_categories Integer vector. List of category ids to be enabled
+#' @param tagger_only Logical. Don't check, but only print text analysis (sentences, 
+#' part-of-speech tags)
 #' @param bitext Logical. Check bilingual texts with a tab-separated input file,
 #' see http://languagetool.wikidot.com/checking-translations-bilingual-texts
 #' @param profile Logical. Print performance measurements
@@ -70,6 +72,7 @@ languagetool <- function(
   enabled_only = FALSE,
   disabled_categories = c(),
   enabled_categories = c(),
+  tagger_only = FALSE,
   bitext = FALSE,
   profile = FALSE,
   verbose = FALSE,
@@ -83,8 +86,8 @@ languagetool <- function(
   fast_text_binary_file = NA_character_
 ) {
 
+  #### input selection ####
   input <- NA_character_
-  # input selection
   if (!is.na(input_file)) {
     # one file input
     input <- input_file
@@ -95,9 +98,13 @@ languagetool <- function(
     # write input text to temporary file
     input <- tempfile()
     writeLines(x, input)
+  } else if (list_languages) {
+    
+  } else {
+    stop("No input defined.")
   }
   
-  # call languagetool to get json result
+  #### call languagetool ####
   output_json <- system2(
     command = executable,
     args = c(
@@ -113,6 +120,7 @@ languagetool <- function(
       ifelse(enabled_only, paste("--enabledonly"), ""),
       ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
       ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
+      ifelse(tagger_only, paste("--taggeronly"), ""),
       ifelse(bitext, paste("--bitext"), ""),
       ifelse(profile, paste("--profile"), ""),
       ifelse(verbose, paste("--verbose"), ""),
@@ -131,6 +139,7 @@ languagetool <- function(
     stderr = ""
   )
   
+  #### special output ####
   # special output if language list is requested
   if (list_languages) {
     languages <- lapply(
@@ -145,6 +154,12 @@ languagetool <- function(
     return(do.call(rbind, languages))
   }
   
+  # special output if tagger_only = TRUE
+  if (tagger_only) {
+    return(output_json)
+  }
+  
+  #### normal output ####
   # json output to R list
   output_list <- rjson::fromJSON(output_json)
   
