@@ -28,6 +28,8 @@
 #' @param enabled_categories Integer vector. List of category ids to be enabled
 #' @param tagger_only Logical. Don't check, but only print text analysis (sentences, 
 #' part-of-speech tags)
+#' @param list_unknown Logical. Also print a summary of words from the input that 
+#' LanguageTool doesn't know
 #' @param bitext Logical. Check bilingual texts with a tab-separated input file,
 #' see http://languagetool.wikidot.com/checking-translations-bilingual-texts
 #' @param profile Logical. Print performance measurements
@@ -73,6 +75,7 @@ languagetool <- function(
   disabled_categories = c(),
   enabled_categories = c(),
   tagger_only = FALSE,
+  list_unknown = FALSE,
   bitext = FALSE,
   profile = FALSE,
   verbose = FALSE,
@@ -121,6 +124,7 @@ languagetool <- function(
       ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
       ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
       ifelse(tagger_only, paste("--taggeronly"), ""),
+      ifelse(list_unknown, paste("--list-unknown"), ""),
       ifelse(bitext, paste("--bitext"), ""),
       ifelse(profile, paste("--profile"), ""),
       ifelse(verbose, paste("--verbose"), ""),
@@ -132,7 +136,9 @@ languagetool <- function(
       ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
       ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
       ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
-      "--json",
+      # json
+      ifelse(!list_languages & !tagger_only & !list_unknown, "--json", ""),
+      # input
       ifelse(!is.na(input), input, "")
     ),
     stdout = TRUE,
@@ -154,8 +160,8 @@ languagetool <- function(
     return(do.call(rbind, languages))
   }
   
-  # special output if tagger_only = TRUE
-  if (tagger_only) {
+  # special output if tagger_only == TRUE or list_unknown == TRUE
+  if (tagger_only | list_unknown) {
     return(output_json)
   }
   

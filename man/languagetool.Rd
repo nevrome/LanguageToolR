@@ -13,8 +13,8 @@ languagetool(x = c(), input_file = NA_character_,
   mothertongue = NA_character_, disabled_rules = c(),
   enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
-  tagger_only = FALSE, bitext = FALSE, profile = FALSE,
-  verbose = FALSE, rule_file = NA_character_,
+  tagger_only = FALSE, list_unknown = FALSE, bitext = FALSE,
+  profile = FALSE, verbose = FALSE, rule_file = NA_character_,
   false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
@@ -66,6 +66,9 @@ activate false-friend checking}
 
 \item{tagger_only}{Logical. Don't check, but only print text analysis (sentences, 
 part-of-speech tags)}
+
+\item{list_unknown}{Logical. Also print a summary of words from the input that 
+LanguageTool doesn't know}
 
 \item{bitext}{Logical. Check bilingual texts with a tab-separated input file,
 see http://languagetool.wikidot.com/checking-translations-bilingual-texts}
