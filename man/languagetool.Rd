@@ -2,14 +2,16 @@
 % Please edit documentation in R/langtool_function.R
 \name{languagetool}
 \alias{languagetool}
+\alias{list_languages}
 \title{LanguageTool API function}
 \usage{
 languagetool(x = c(), input_file = NA_character_,
   input_directory = NA_character_, recursive = FALSE,
   executable = "languagetool", encoding = "utf-8",
   linebreak_paragraph = FALSE, language = "en-GB",
-  auto_detect_language = FALSE, mothertongue = NA_character_,
-  disabled_rules = c(), enabled_rules = c(), enabled_only = FALSE,
+  list_languages = FALSE, auto_detect_language = FALSE,
+  mothertongue = NA_character_, disabled_rules = c(),
+  enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
   bitext = FALSE, profile = FALSE, verbose = FALSE,
   rule_file = NA_character_, false_friends_file = NA_character_,
@@ -19,6 +21,8 @@ languagetool(x = c(), input_file = NA_character_,
   neural_network_model_directory = NA_character_,
   fast_text_model_file = NA_character_,
   fast_text_binary_file = NA_character_)
+
+list_languages(x)
 }
 \arguments{
 \item{x}{Character vector. Text to analyse}
@@ -39,6 +43,8 @@ of a paragraph}
 
 \item{language}{Character. The language code of the text, e.g. en for English, 
 en-GB for British English}
+
+\item{list_languages}{Logical. Print all available languages and exit}
 
 \item{auto_detect_language}{Logical. Auto-detect the language of the input text - 
 note this will not detect variants like 'English (US)', so you will not get spell 

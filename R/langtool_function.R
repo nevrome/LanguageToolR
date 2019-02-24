@@ -15,6 +15,7 @@
 #' of a paragraph
 #' @param language Character. The language code of the text, e.g. en for English, 
 #' en-GB for British English
+#' @param list_languages Logical. Print all available languages and exit
 #' @param auto_detect_language Logical. Auto-detect the language of the input text - 
 #' note this will not detect variants like 'English (US)', so you will not get spell 
 #' checking for languages with variants
@@ -49,6 +50,7 @@
 #' see https://fasttext.cc/docs/en/support.html
 #'
 #' @return Tibble (data.frame) with the output of languagetool parsed from json
+#' @rdname languagetool
 #' 
 #' @export
 languagetool <- function( 
@@ -60,6 +62,7 @@ languagetool <- function(
   encoding = "utf-8",
   linebreak_paragraph = FALSE,
   language = "en-GB",
+  list_languages = FALSE,
   auto_detect_language = FALSE,
   mothertongue = NA_character_,
   disabled_rules = c(),
@@ -80,6 +83,7 @@ languagetool <- function(
   fast_text_binary_file = NA_character_
 ) {
 
+  input <- NA_character_
   # input selection
   if (!is.na(input_file)) {
     # one file input
@@ -87,7 +91,7 @@ languagetool <- function(
   } else if (!is.na(input_directory) ) {
     # directory input
     input <- input_directory
-  } else {
+  } else if (length(x) > 0) {
     # write input text to temporary file
     input <- tempfile()
     writeLines(x, input)
@@ -101,6 +105,7 @@ languagetool <- function(
       ifelse(!is.na(encoding), paste("--encoding", encoding), ""),
       ifelse(linebreak_paragraph, paste("-b"), ""),
       ifelse(!is.na(language), paste("--language", language), ""),
+      ifelse(list_languages, paste("--list"), ""),
       ifelse(auto_detect_language, paste("--autoDetect"), ""),
       ifelse(!is.na(mothertongue), paste("--mothertongue", mothertongue), ""),
       ifelse(length(disabled_rules) != 0, paste("--disable", paste(disabled_rules, collapse = ",")), ""),
@@ -120,11 +125,25 @@ languagetool <- function(
       ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
       ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
       "--json",
-      input
+      ifelse(!is.na(input), input, "")
     ),
     stdout = TRUE,
     stderr = ""
   )
+  
+  # special output if language list is requested
+  if (list_languages) {
+    languages <- lapply(
+      strsplit(output_json, " "),
+      function(x) {
+        tibble::tibble(
+          id = x[1],
+          name = paste(x[-1], collapse = " ")
+        )
+      }
+    )
+    return(do.call(rbind, languages))
+  }
   
   # json output to R list
   output_list <- rjson::fromJSON(output_json)
@@ -153,9 +172,15 @@ languagetool <- function(
       )
     }
   )
-  output_df <- dplyr::bind_rows(output_df_list)
+  output_df <- do.call(rbind, output_df_list)
   
   # return output tibble
   return(output_df)
 
+}
+
+#' @rdname languagetool
+#' @export
+list_languages <- function(x) {
+  languagetool(list_languages = TRUE)
 }
