@@ -3,6 +3,7 @@
 \name{languagetool}
 \alias{languagetool}
 \alias{list_languages}
+\alias{version}
 \title{LanguageTool API function}
 \usage{
 languagetool(x = c(), input_file = NA_character_,
@@ -14,8 +15,8 @@ languagetool(x = c(), input_file = NA_character_,
   enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
   tagger_only = FALSE, list_unknown = FALSE, bitext = FALSE,
-  profile = FALSE, verbose = FALSE, rule_file = NA_character_,
-  false_friends_file = NA_character_,
+  profile = FALSE, verbose = FALSE, version = FALSE,
+  rule_file = NA_character_, false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
   word2vec_model_directory = NA_character_,
@@ -24,6 +25,8 @@ languagetool(x = c(), input_file = NA_character_,
   fast_text_binary_file = NA_character_)
 
 list_languages(x)
+
+version(x)
 }
 \arguments{
 \item{x}{Character vector. Text to analyse}
@@ -76,6 +79,8 @@ see http://languagetool.wikidot.com/checking-translations-bilingual-texts}
 \item{profile}{Logical. Print performance measurements}
 
 \item{verbose}{Logical. Print text analysis (sentences, part-of-speech tags)}
+
+\item{version}{Logical. Print LanguageTool version number}
 
 \item{rule_file}{Character. Use an additional grammar file; if the filename 
 contains a known language code, it is used in addition of standard rules}

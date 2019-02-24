@@ -34,6 +34,9 @@
 #' see http://languagetool.wikidot.com/checking-translations-bilingual-texts
 #' @param profile Logical. Print performance measurements
 #' @param verbose Logical. Print text analysis (sentences, part-of-speech tags)
+#' @param version Logical. Print LanguageTool version number
+#' @param apply Logical. automatically apply suggestions if available, printing result. 
+#' NOTE: only use with very robust rules, as this will otherwise introduce new errors
 #' @param rule_file Character. Use an additional grammar file; if the filename 
 #' contains a known language code, it is used in addition of standard rules
 #' @param false_friends_file Character. Use external false friend file to be used 
@@ -79,6 +82,8 @@ languagetool <- function(
   bitext = FALSE,
   profile = FALSE,
   verbose = FALSE,
+  version = FALSE,
+  apply = FALSE,
   rule_file = NA_character_,
   false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
@@ -101,8 +106,8 @@ languagetool <- function(
     # write input text to temporary file
     input <- tempfile()
     writeLines(x, input)
-  } else if (list_languages) {
-    
+  } else if (list_languages | version) {
+    # special output without input
   } else {
     stop("No input defined.")
   }
@@ -128,6 +133,8 @@ languagetool <- function(
       ifelse(bitext, paste("--bitext"), ""),
       ifelse(profile, paste("--profile"), ""),
       ifelse(verbose, paste("--verbose"), ""),
+      ifelse(version, paste("--version"), ""),
+      ifelse(apply, paste("--apply"), ""),
       ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
       ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
       ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
@@ -137,7 +144,7 @@ languagetool <- function(
       ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
       ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
       # json
-      ifelse(!list_languages & !tagger_only & !list_unknown, "--json", ""),
+      ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
       # input
       ifelse(!is.na(input), input, "")
     ),
@@ -160,8 +167,9 @@ languagetool <- function(
     return(do.call(rbind, languages))
   }
   
-  # special output if tagger_only == TRUE or list_unknown == TRUE
-  if (tagger_only | list_unknown) {
+  # special output if tagger_only == TRUE or list_unknown == TRUE or
+  # version == TRUE or apply == TRUE
+  if (tagger_only | list_unknown | version | apply) {
     return(output_json)
   }
   
@@ -204,4 +212,10 @@ languagetool <- function(
 #' @export
 list_languages <- function(x) {
   languagetool(list_languages = TRUE)
+}
+
+#' @rdname languagetool
+#' @export
+version <- function(x) {
+  languagetool(version = TRUE)
 }

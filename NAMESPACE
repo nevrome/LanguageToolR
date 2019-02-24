@@ -2,3 +2,4 @@
 
 export(languagetool)
 export(list_languages)
+export(version)
