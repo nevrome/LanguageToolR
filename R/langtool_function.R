@@ -2,7 +2,8 @@
 #' 
 #' Provides a wrapper for the 
 #' \href{http://wiki.languagetool.org/command-line-options}{LanguageTool CLI tool} 
-#' for spelling, grammar and language checking.
+#' for spelling, grammar and language checking. \code{quick_setup} provides an easy
+#' option to automatically download LanguageTool.
 #'
 #' @param x Character vector. Text to analyse
 #' @param input_file Character. File to analyse (instead of x)
@@ -55,6 +56,7 @@
 #' see https://fasttext.cc/docs/en/language-identification.html
 #' @param fast_text_binary_file Character. fasttext executable, 
 #' see https://fasttext.cc/docs/en/support.html
+#' @param path Character. Directory where LanguageTool should be installed. 
 #'
 #' @return Tibble (data.frame) with the output of languagetool parsed from json. 
 #' Some options yield special outputs
@@ -69,7 +71,7 @@ languagetool <- function(
   input_file = NA_character_,
   input_directory = NA_character_,
   recursive = FALSE,
-  executable = "languagetool",
+  executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar",
   encoding = "utf-8",
   linebreak_paragraph = FALSE,
   language = "en-GB",
@@ -117,43 +119,44 @@ languagetool <- function(
   }
   
   #### call languagetool ####
-  output_json <- system2(
-    command = executable,
-    args = c(
-      ifelse(recursive, paste("--recursive"), ""),
-      ifelse(!is.na(encoding), paste("--encoding", encoding), ""),
-      ifelse(linebreak_paragraph, paste("-b"), ""),
-      ifelse(!is.na(language), paste("--language", language), ""),
-      ifelse(list_languages, paste("--list"), ""),
-      ifelse(auto_detect_language, paste("--autoDetect"), ""),
-      ifelse(!is.na(mothertongue), paste("--mothertongue", mothertongue), ""),
-      ifelse(length(disabled_rules) != 0, paste("--disable", paste(disabled_rules, collapse = ",")), ""),
-      ifelse(length(enabled_rules) != 0, paste("--enable", paste(enabled_rules, collapse = ",")), ""),
-      ifelse(enabled_only, paste("--enabledonly"), ""),
-      ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
-      ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
-      ifelse(tagger_only, paste("--taggeronly"), ""),
-      ifelse(list_unknown, paste("--list-unknown"), ""),
-      ifelse(bitext, paste("--bitext"), ""),
-      ifelse(profile, paste("--profile"), ""),
-      ifelse(verbose, paste("--verbose"), ""),
-      ifelse(version, paste("--version"), ""),
-      ifelse(apply, paste("--apply"), ""),
-      ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
-      ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
-      ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
-      ifelse(!is.na(language_model_directory), paste("--languagemodel", language_model_directory), ""),
-      ifelse(!is.na(word2vec_model_directory), paste("--word2vecmodel", word2vec_model_directory), ""),
-      ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
-      ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
-      ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
-      # json
-      ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
-      # input
-      ifelse(!is.na(input), input, "")
+  output_json <- system(
+    command = paste(
+      executable,
+      paste(
+        ifelse(recursive, paste("--recursive"), ""),
+        ifelse(!is.na(encoding), paste("--encoding", encoding), ""),
+        ifelse(linebreak_paragraph, paste("-b"), ""),
+        ifelse(!is.na(language), paste("--language", language), ""),
+        ifelse(list_languages, paste("--list"), ""),
+        ifelse(auto_detect_language, paste("--autoDetect"), ""),
+        ifelse(!is.na(mothertongue), paste("--mothertongue", mothertongue), ""),
+        ifelse(length(disabled_rules) != 0, paste("--disable", paste(disabled_rules, collapse = ",")), ""),
+        ifelse(length(enabled_rules) != 0, paste("--enable", paste(enabled_rules, collapse = ",")), ""),
+        ifelse(enabled_only, paste("--enabledonly"), ""),
+        ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
+        ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
+        ifelse(tagger_only, paste("--taggeronly"), ""),
+        ifelse(list_unknown, paste("--list-unknown"), ""),
+        ifelse(bitext, paste("--bitext"), ""),
+        ifelse(profile, paste("--profile"), ""),
+        ifelse(verbose, paste("--verbose"), ""),
+        ifelse(version, paste("--version"), ""),
+        ifelse(apply, paste("--apply"), ""),
+        ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
+        ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
+        ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
+        ifelse(!is.na(language_model_directory), paste("--languagemodel", language_model_directory), ""),
+        ifelse(!is.na(word2vec_model_directory), paste("--word2vecmodel", word2vec_model_directory), ""),
+        ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
+        ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
+        ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
+        # json
+        ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
+        # input
+        ifelse(!is.na(input), input, "")
+      )
     ),
-    stdout = TRUE,
-    stderr = ""
+    intern = TRUE
   )
   
   #### special output ####
