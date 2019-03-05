@@ -3,4 +3,5 @@
 export(languages)
 export(languagetool)
 export(quick_setup)
+export(test_setup)
 export(version)

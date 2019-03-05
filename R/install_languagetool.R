@@ -3,7 +3,7 @@
 quick_setup <- function(path = "~") {
   
   # check if languagetool is installed
-  check_if_installed(path)
+  check_if_installed_at_path(path)
 
   # download languagetool
   download(path)
@@ -14,7 +14,7 @@ quick_setup <- function(path = "~") {
   return(paste0("java -jar ", jar_file))
 }
 
-check_if_installed <- function(path) {
+check_if_installed_at_path <- function(path) {
   place <- file.path(path, "LanguageTool-4.4")
   exists <- dir.exists(place)
   if (exists) {

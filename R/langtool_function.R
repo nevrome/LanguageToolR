@@ -99,7 +99,7 @@ languagetool <- function(
   fast_text_model_file = NA_character_,
   fast_text_binary_file = NA_character_
 ) {
-
+  
   #### input selection ####
   input <- NA_character_
   if (!is.na(input_file)) {
@@ -225,6 +225,14 @@ languages <- function(x) {
 #' @export
 version <- function(x) {
   languagetool(version = TRUE)
+}
+
+#' @rdname languagetool
+#' @export
+test_setup <- function(
+  executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar"
+) {
+  system(paste(executable, "--version")) == 0
 }
 
 #' @rdname languagetool

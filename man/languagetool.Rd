@@ -5,6 +5,7 @@
 \alias{languagetool}
 \alias{languages}
 \alias{version}
+\alias{test_setup}
 \alias{test_text}
 \title{LanguageTool API function}
 \usage{
@@ -31,6 +32,9 @@ languagetool(x = c(), input_file = NA_character_,
 languages(x)
 
 version(x)
+
+
+  test_setup(executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar")
 }
 \arguments{
 \item{path}{Character. Directory where LanguageTool should be installed.}
