@@ -27,7 +27,7 @@ languagetool(x = c(), input_file = NA_character_,
   word2vec_model_directory = NA_character_,
   neural_network_model_directory = NA_character_,
   fast_text_model_file = NA_character_,
-  fast_text_binary_file = NA_character_)
+  fast_text_binary_file = NA_character_, quiet = FALSE)
 
 languages(x)
 
@@ -120,6 +120,8 @@ see https://fasttext.cc/docs/en/language-identification.html}
 
 \item{fast_text_binary_file}{Character. fasttext executable, 
 see https://fasttext.cc/docs/en/support.html}
+
+\item{quiet}{Logical. Should the console output of languagetool be displayed or hidden?}
 }
 \value{
 Tibble (data.frame) with the output of languagetool parsed from json. 

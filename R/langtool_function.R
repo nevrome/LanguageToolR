@@ -56,7 +56,8 @@
 #' see https://fasttext.cc/docs/en/language-identification.html
 #' @param fast_text_binary_file Character. fasttext executable, 
 #' see https://fasttext.cc/docs/en/support.html
-#' @param path Character. Directory where LanguageTool should be installed. 
+#' @param path Character. Directory where LanguageTool should be installed.
+#' @param quiet Logical. Should the console output of languagetool be displayed or hidden? 
 #'
 #' @return Tibble (data.frame) with the output of languagetool parsed from json. 
 #' Some options yield special outputs
@@ -97,7 +98,8 @@ languagetool <- function(
   word2vec_model_directory = NA_character_,
   neural_network_model_directory = NA_character_,
   fast_text_model_file = NA_character_,
-  fast_text_binary_file = NA_character_
+  fast_text_binary_file = NA_character_,
+  quiet = FALSE
 ) {
   
   if (!test_setup(executable)) {
@@ -163,7 +165,8 @@ languagetool <- function(
         ifelse(!is.na(input), input, "")
       )
     ),
-    intern = TRUE
+    intern = TRUE,
+    ignore.stderr = quiet
   )
   
   #### special output ####
