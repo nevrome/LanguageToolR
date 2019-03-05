@@ -100,6 +100,13 @@ languagetool <- function(
   fast_text_binary_file = NA_character_
 ) {
   
+  if (!test_setup(executable)) {
+    stop(
+      "The provided executable is not available or does not work correctly. ",
+      "You can install LanguageTool with the quick_setup() function."
+    )
+  }
+  
   #### input selection ####
   input <- NA_character_
   if (!is.na(input_file)) {
@@ -232,7 +239,7 @@ version <- function(x) {
 test_setup <- function(
   executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar"
 ) {
-  system(paste(executable, "--version")) == 0
+  system(paste(executable, "--version"), ignore.stdout = TRUE) == 0
 }
 
 #' @rdname languagetool
