@@ -242,7 +242,7 @@ version <- function(x) {
 test_setup <- function(
   executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar"
 ) {
-  system(paste(executable, "--version"), ignore.stdout = TRUE) == 0
+  system(paste(executable, "--version"), ignore.stdout = TRUE, ignore.stderr = TRUE) == 0
 }
 
 #' @rdname languagetool
