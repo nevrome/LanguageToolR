@@ -2,7 +2,10 @@
 
 `LanguageToolR` provides a wrapper for the [LanguageTool CLI tool](http://wiki.languagetool.org/command-line-options) for spelling, grammar and language checking. The wrapper provides all current options of the command line tool.
 
-I'm not part of the LanguageTool team. This is an unofficial interface.
+:heavy_exclamation_mark: I'm not part of the LanguageTool team. This is an unofficial interface.
+
+:heavy_exclamation_mark: The package currently only works on Unix-like systems. 
+
 
 ## Installation
 
