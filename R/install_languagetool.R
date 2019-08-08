@@ -9,13 +9,13 @@ quick_setup <- function(path = "~") {
   download(path)
   
   # how to call languagetool
-  jar_file <- file.path(path, "LanguageTool-4.4", "languagetool-commandline.jar")
+  jar_file <- file.path(path, "LanguageTool-4.6", "languagetool-commandline.jar")
   message("Executable:")
   return(paste0("java -jar ", jar_file))
 }
 
 check_if_installed_at_path <- function(path) {
-  place <- file.path(path, "LanguageTool-4.4")
+  place <- file.path(path, "LanguageTool-4.6")
   exists <- dir.exists(place)
   if (exists) {
     stop("LanguageTool seems to be already installed at: ", place)
@@ -27,7 +27,7 @@ check_if_installed_at_path <- function(path) {
 
 download <- function(path){
   temp <- tempfile()
-  utils::download.file("https://www.languagetool.org/download/LanguageTool-4.4.zip", temp)
+  utils::download.file("https://www.languagetool.org/download/LanguageTool-4.6.zip", temp)
   message("Unpacking archive...")
   utils::unzip(temp, exdir = path)
   unlink(temp)

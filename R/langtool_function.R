@@ -72,7 +72,7 @@ languagetool <- function(
   input_file = NA_character_,
   input_directory = NA_character_,
   recursive = FALSE,
-  executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar",
+  executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar",
   encoding = "utf-8",
   linebreak_paragraph = FALSE,
   language = "en-GB",
@@ -240,7 +240,7 @@ version <- function(x) {
 #' @rdname languagetool
 #' @export
 test_setup <- function(
-  executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar"
+  executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar"
 ) {
   system(paste(executable, "--version"), ignore.stdout = TRUE) == 0
 }

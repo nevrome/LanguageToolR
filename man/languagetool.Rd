@@ -13,7 +13,7 @@ quick_setup(path = "~")
 
 languagetool(x = c(), input_file = NA_character_,
   input_directory = NA_character_, recursive = FALSE,
-  executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar",
+  executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar",
   encoding = "utf-8", linebreak_paragraph = FALSE,
   language = "en-GB", list_languages = FALSE,
   auto_detect_language = FALSE, mothertongue = NA_character_,
@@ -34,7 +34,7 @@ languages(x)
 version(x)
 
 
-  test_setup(executable = "java -jar ~/LanguageTool-4.4/languagetool-commandline.jar")
+  test_setup(executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar")
 }
 \arguments{
 \item{path}{Character. Directory where LanguageTool should be installed.}
