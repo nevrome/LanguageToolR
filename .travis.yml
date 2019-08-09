@@ -1,7 +1,7 @@
 language: R
 sudo: true
 cache:
-  packages
+  packages: true
   directories:
   - $HOME/LanguageTool-4.6
 r_packages:
