@@ -8,9 +8,6 @@
 
 :heavy_exclamation_mark: I'm not part of the LanguageTool team. This is an unofficial interface.
 
-:heavy_exclamation_mark: The package currently only works on Unix-like systems. 
-
-
 ## Installation
 
 1. Install languagetool for your system. You can do this with the following setup function or directly from package sources for your OS or manually following the instructions here: https://github.com/languagetool-org/languagetool
