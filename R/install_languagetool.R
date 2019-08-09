@@ -2,6 +2,9 @@
 #' @export
 quick_setup <- function(path = "~") {
   
+  # Resolve "~" to appropriate directory
+  path <- path.expand(path)
+  
   # check if languagetool is installed
   check_if_installed_at_path(path)
 
@@ -11,7 +14,7 @@ quick_setup <- function(path = "~") {
   # how to call languagetool
   jar_file <- file.path(path, "LanguageTool-4.6", "languagetool-commandline.jar")
   message("Executable:")
-  return(paste0("java -jar ", jar_file))
+  return(paste0('java -jar "', jar_file, '"'))
 }
 
 check_if_installed_at_path <- function(path) {

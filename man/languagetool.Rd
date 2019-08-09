@@ -6,6 +6,7 @@
 \alias{languages}
 \alias{version}
 \alias{test_setup}
+\alias{get_default_executable}
 \alias{test_text}
 \title{LanguageTool API function}
 \usage{
@@ -13,11 +14,11 @@ quick_setup(path = "~")
 
 languagetool(x = c(), input_file = NA_character_,
   input_directory = NA_character_, recursive = FALSE,
-  executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar",
-  encoding = "utf-8", linebreak_paragraph = FALSE,
-  language = "en-GB", list_languages = FALSE,
-  auto_detect_language = FALSE, mothertongue = NA_character_,
-  disabled_rules = c(), enabled_rules = c(), enabled_only = FALSE,
+  executable = get_default_executable(), encoding = "utf-8",
+  linebreak_paragraph = FALSE, language = "en-GB",
+  list_languages = FALSE, auto_detect_language = FALSE,
+  mothertongue = NA_character_, disabled_rules = c(),
+  enabled_rules = c(), enabled_only = FALSE,
   disabled_categories = c(), enabled_categories = c(),
   tagger_only = FALSE, list_unknown = FALSE, bitext = FALSE,
   profile = FALSE, verbose = FALSE, version = FALSE, apply = FALSE,
@@ -33,8 +34,9 @@ languages(x)
 
 version(x)
 
+test_setup(executable = get_default_executable())
 
-  test_setup(executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar")
+get_default_executable()
 }
 \arguments{
 \item{path}{Character. Directory where LanguageTool should be installed.}
