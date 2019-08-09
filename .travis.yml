@@ -1,0 +1,11 @@
+language: R
+sudo: true
+cache:
+  packages
+  directories:
+  - $HOME/LanguageTool-4.6
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'library(covr); codecov()'
