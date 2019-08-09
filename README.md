@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/LanguageToolR.svg?branch=master)](https://travis-ci.org/ISAAKiel/LanguageToolR) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/LanguageToolR/master.svg)](https://codecov.io/github/ISAAKiel/LanguageToolR?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/nevrome/LanguageToolR.svg?branch=master)](https://travis-ci.org/nevrome/LanguageToolR) [![Coverage Status](https://img.shields.io/codecov/c/github/nevrome/LanguageToolR/master.svg)](https://codecov.io/github/nevrome/LanguageToolR?branch=master)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/LanguageToolR)](https://cran.r-project.org/package=LanguageToolR)
 [![license](https://img.shields.io/badge/license-GPL%203-B50B82.svg)](https://www.r-project.org/Licenses/GPL-2)
 
