@@ -1,3 +1,5 @@
-if (!LanguageToolR::test_setup()) {
-  LanguageToolR::quick_setup()
+library(LanguageToolR)
+
+if (!test_setup()) {
+  quick_setup()
 }
