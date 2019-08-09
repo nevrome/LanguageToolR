@@ -72,7 +72,7 @@ languagetool <- function(
   input_file = NA_character_,
   input_directory = NA_character_,
   recursive = FALSE,
-  executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar",
+  executable = get_default_executable(),
   encoding = "utf-8",
   linebreak_paragraph = FALSE,
   language = "en-GB",
@@ -101,7 +101,7 @@ languagetool <- function(
   fast_text_binary_file = NA_character_,
   quiet = FALSE
 ) {
-  
+
   if (!test_setup(executable)) {
     stop(
       "The provided executable is not available or does not work correctly. ",
@@ -222,7 +222,6 @@ languagetool <- function(
   
   # return output tibble
   return(output_df)
-
 }
 
 #' @rdname languagetool
@@ -239,10 +238,17 @@ version <- function(x) {
 
 #' @rdname languagetool
 #' @export
-test_setup <- function(
-  executable = "java -jar ~/LanguageTool-4.6/languagetool-commandline.jar"
-) {
+test_setup <- function(executable = get_default_executable()) {
   system(paste(executable, "--version"), ignore.stdout = TRUE, ignore.stderr = TRUE) == 0
+}
+
+#' @rdname languagetool
+#' @export
+get_default_executable <- function() {
+  paste0(
+    'java -jar "', 
+    path.expand('~/LanguageTool-4.6/languagetool-commandline.jar'),
+    '"')
 }
 
 #' @rdname languagetool
