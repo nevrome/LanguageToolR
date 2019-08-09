@@ -1,3 +1,7 @@
+[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/LanguageToolR.svg?branch=master)](https://travis-ci.org/ISAAKiel/LanguageToolR) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/LanguageToolR/master.svg)](https://codecov.io/github/ISAAKiel/LanguageToolR?branch=master)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/LanguageToolR)](https://cran.r-project.org/package=LanguageToolR)
+[![license](https://img.shields.io/badge/license-GPL%203-B50B82.svg)](https://www.r-project.org/Licenses/GPL-2)
+
 # LanguageToolR
 
 `LanguageToolR` provides a wrapper for the [LanguageTool CLI tool](http://wiki.languagetool.org/command-line-options) for spelling, grammar and language checking. The wrapper provides all current options of the command line tool.
