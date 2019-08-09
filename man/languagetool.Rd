@@ -136,6 +136,12 @@ for spelling, grammar and language checking. \code{quick_setup} provides an easy
 option to automatically download LanguageTool.
 }
 \examples{
+# install LanguageTool if it is not already available
+if (!LanguageToolR::test_setup()) {
+  LanguageToolR::quick_setup()
+}
+
+# apply LanguageTool checks to some test text
 languagetool(test_text)
 
 }
