@@ -127,7 +127,7 @@ languagetool <- function(
   } else {
     stop("No input defined.")
   }
-  
+
   #### Construct languagetool command ####
   command <- paste(
     executable,
@@ -162,7 +162,7 @@ languagetool <- function(
       # json
       ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
       # input
-      ifelse(!is.na(input), input, "")
+      ifelse(!is.na(input), paste0('"', input, '"'), "")
     )
   )
   
