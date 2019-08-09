@@ -101,7 +101,7 @@ languagetool <- function(
   fast_text_binary_file = NA_character_,
   quiet = FALSE
 ) {
-
+  
   if (!test_setup(executable)) {
     stop(
       "The provided executable is not available or does not work correctly. ",
@@ -121,53 +121,53 @@ languagetool <- function(
     # write input text to temporary file
     input <- tempfile()
     writeLines(x, input)
+    on.exit(unlink(input)) # ensure cleanup
   } else if (list_languages | version) {
     # special output without input
   } else {
     stop("No input defined.")
   }
   
-  #### call languagetool ####
-  output_json <- system(
-    command = paste(
-      executable,
-      paste(
-        ifelse(recursive, paste("--recursive"), ""),
-        ifelse(!is.na(encoding), paste("--encoding", encoding), ""),
-        ifelse(linebreak_paragraph, paste("-b"), ""),
-        ifelse(!is.na(language), paste("--language", language), ""),
-        ifelse(list_languages, paste("--list"), ""),
-        ifelse(auto_detect_language, paste("--autoDetect"), ""),
-        ifelse(!is.na(mothertongue), paste("--mothertongue", mothertongue), ""),
-        ifelse(length(disabled_rules) != 0, paste("--disable", paste(disabled_rules, collapse = ",")), ""),
-        ifelse(length(enabled_rules) != 0, paste("--enable", paste(enabled_rules, collapse = ",")), ""),
-        ifelse(enabled_only, paste("--enabledonly"), ""),
-        ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
-        ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
-        ifelse(tagger_only, paste("--taggeronly"), ""),
-        ifelse(list_unknown, paste("--list-unknown"), ""),
-        ifelse(bitext, paste("--bitext"), ""),
-        ifelse(profile, paste("--profile"), ""),
-        ifelse(verbose, paste("--verbose"), ""),
-        ifelse(version, paste("--version"), ""),
-        ifelse(apply, paste("--apply"), ""),
-        ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
-        ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
-        ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
-        ifelse(!is.na(language_model_directory), paste("--languagemodel", language_model_directory), ""),
-        ifelse(!is.na(word2vec_model_directory), paste("--word2vecmodel", word2vec_model_directory), ""),
-        ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
-        ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
-        ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
-        # json
-        ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
-        # input
-        ifelse(!is.na(input), input, "")
-      )
-    ),
-    intern = TRUE,
-    ignore.stderr = quiet
+  #### Construct languagetool command ####
+  command <- paste(
+    executable,
+    paste(
+      ifelse(recursive, paste("--recursive"), ""),
+      ifelse(!is.na(encoding), paste("--encoding", encoding), ""),
+      ifelse(linebreak_paragraph, paste("-b"), ""),
+      ifelse(!is.na(language), paste("--language", language), ""),
+      ifelse(list_languages, paste("--list"), ""),
+      ifelse(auto_detect_language, paste("--autoDetect"), ""),
+      ifelse(!is.na(mothertongue), paste("--mothertongue", mothertongue), ""),
+      ifelse(length(disabled_rules) != 0, paste("--disable", paste(disabled_rules, collapse = ",")), ""),
+      ifelse(length(enabled_rules) != 0, paste("--enable", paste(enabled_rules, collapse = ",")), ""),
+      ifelse(enabled_only, paste("--enabledonly"), ""),
+      ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
+      ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
+      ifelse(tagger_only, paste("--taggeronly"), ""),
+      ifelse(list_unknown, paste("--list-unknown"), ""),
+      ifelse(bitext, paste("--bitext"), ""),
+      ifelse(profile, paste("--profile"), ""),
+      ifelse(verbose, paste("--verbose"), ""),
+      ifelse(version, paste("--version"), ""),
+      ifelse(apply, paste("--apply"), ""),
+      ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
+      ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
+      ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
+      ifelse(!is.na(language_model_directory), paste("--languagemodel", language_model_directory), ""),
+      ifelse(!is.na(word2vec_model_directory), paste("--word2vecmodel", word2vec_model_directory), ""),
+      ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
+      ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
+      ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
+      # json
+      ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
+      # input
+      ifelse(!is.na(input), input, "")
+    )
   )
+  
+  #### call languagetool ####
+  output_json <- system(command, intern = TRUE, ignore.stderr = quiet)
   
   #### special output ####
   # special output if language list is requested
