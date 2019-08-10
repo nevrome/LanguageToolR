@@ -13,3 +13,5 @@ Imports:
     tibble (>= 1.4.2)
 Suggests: 
     testthat
+SystemRequirements:
+    LanguageTool
