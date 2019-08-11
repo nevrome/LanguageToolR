@@ -1,5 +1,6 @@
 test_that("get_default_executable()", {
-  
+  languagetool_version <- 4.6
+
   expected_str <- paste0(
     "java -jar \"D:/Dokumentai/LanguageTool-",
     languagetool_version,
