@@ -232,13 +232,13 @@ languagetool <- function(
 
 #' @rdname languagetool
 #' @export
-languages <- function(x) {
+languages <- function() {
   languagetool(list_languages = TRUE)
 }
 
 #' @rdname languagetool
 #' @export
-version <- function(x) {
+version <- function() {
   languagetool(version = TRUE)
 }
 
