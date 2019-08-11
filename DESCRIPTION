@@ -12,6 +12,6 @@ Imports:
     rjson (>= 0.2.20),
     tibble (>= 1.4.2)
 Suggests: 
-    testthat
+    testthat (>= 2.1.0)
 SystemRequirements:
     LanguageTool
