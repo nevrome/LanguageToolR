@@ -195,6 +195,11 @@ languagetool <- function(
     return(output_json)
   }
   
+  # If `quiet = FALSE` and warnings exist, output contains non-JSON strings 
+  # with messages, that fail to be parsed. They should be removed.
+  is_json <- sapply(output_json, jsonlite::validate, USE.NAMES = FALSE)
+  output_json <- output_json[is_json]
+  
   #### regular output ####
   output_df <- lato_parse_json(output_json)
   
