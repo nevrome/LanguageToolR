@@ -10,7 +10,8 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports:
     rjson (>= 0.2.20),
-    tibble (>= 1.4.2)
+    tibble (>= 1.4.2),
+    jsonlite
 Suggests: 
     testthat (>= 2.1.0)
 SystemRequirements:
