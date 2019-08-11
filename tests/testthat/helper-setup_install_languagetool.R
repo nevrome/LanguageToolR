@@ -1,5 +1,5 @@
 library(LanguageToolR)
 
-if (!test_setup()) {
-  quick_setup()
+if (!lato_test_setup()) {
+  lato_quick_setup()
 }

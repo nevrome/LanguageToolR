@@ -2,8 +2,8 @@
 #' 
 #' Provides a wrapper for the 
 #' \href{http://wiki.languagetool.org/command-line-options}{LanguageTool CLI tool} 
-#' for spelling, grammar and language checking. \code{quick_setup} provides an easy
-#' option to automatically download LanguageTool.
+#' for spelling, grammar and language checking. \code{lato_quick_setup} provides 
+#' an easy option to automatically download LanguageTool.
 #'
 #' @param x Character vector. Text to analyse
 #' @param input_file Character. File to analyse (instead of x)
@@ -36,7 +36,7 @@
 #' @param profile Logical. Print performance measurements
 #' @param verbose Logical. Print text analysis (sentences, part-of-speech tags)
 #' @param version Logical. Print LanguageTool version number
-#' @param apply Logical. automatically apply suggestions if available, printing result. 
+#' @param apply Logical. Automatically apply suggestions if available, printing result. 
 #' NOTE: only use with very robust rules, as this will otherwise introduce new errors
 #' @param rule_file Character. Use an additional grammar file; if the filename 
 #' contains a known language code, it is used in addition of standard rules
@@ -59,14 +59,14 @@
 #' @param path Character. Directory where LanguageTool should be installed.
 #' @param quiet Logical. Should the console output of languagetool be displayed or hidden? 
 #'
-#' @return Tibble (data.frame) with the output of languagetool parsed from json. 
+#' @return A \code{\link[tibble]{tibble}} (\code{data.frame}) with the output of languagetool parsed from json. 
 #' Some options yield special outputs
 #' @rdname languagetool
 #' 
 #' @examples 
 #' # install LanguageTool if it is not already available
-#' if (!LanguageToolR::test_setup()) {
-#'   LanguageToolR::quick_setup()
+#' if (!LanguageToolR::lato_test_setup()) {
+#'   LanguageToolR::lato_quick_setup()
 #' }
 #' 
 #' # apply LanguageTool checks to some test text
@@ -78,7 +78,7 @@ languagetool <- function(
   input_file = NA_character_,
   input_directory = NA_character_,
   recursive = FALSE,
-  executable = get_default_executable(),
+  executable = lato_get_default_executable(),
   encoding = "utf-8",
   linebreak_paragraph = FALSE,
   language = "en-GB",
@@ -108,10 +108,10 @@ languagetool <- function(
   quiet = FALSE
 ) {
   
-  if (!test_setup(executable)) {
+  if (!lato_test_setup(executable)) {
     stop(
       "The provided executable is not available or does not work correctly. ",
-      "You can install LanguageTool with the quick_setup() function."
+      "You can install LanguageTool with the lato_quick_setup() function."
     )
   }
   
@@ -207,7 +207,6 @@ languagetool <- function(
   return(output_df)
 }
 
-
 # Internal function: JSON to tibble parser
 lato_parse_json <- function(x) {
   
@@ -246,28 +245,28 @@ lato_parse_json <- function(x) {
 
 #' @rdname languagetool
 #' @export
-languages <- function() {
+lato_list_languages <- function() {
   languagetool(list_languages = TRUE)
 }
 
 #' @rdname languagetool
 #' @export
-version <- function() {
+lato_get_version <- function() {
   languagetool(version = TRUE)
 }
 
 #' @rdname languagetool
 #' @export
-test_setup <- function(executable = get_default_executable()) {
+lato_test_setup <- function(executable = lato_get_default_executable()) {
   system(paste(executable, "--version"), ignore.stdout = TRUE, ignore.stderr = TRUE) == 0
 }
 
 #' @rdname languagetool
 #' @export
-get_default_executable <- function() {
+lato_get_default_executable <- function() {
   paste0(
     'java -jar "', 
-    path.expand('~/LanguageTool-4.6/languagetool-commandline.jar'),
+    path.expand(paste0('~/LanguageTool-', languagetool_version, '/languagetool-commandline.jar')),
     '"')
 }
 
