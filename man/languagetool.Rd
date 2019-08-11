@@ -30,9 +30,9 @@ languagetool(x = c(), input_file = NA_character_,
   fast_text_model_file = NA_character_,
   fast_text_binary_file = NA_character_, quiet = FALSE)
 
-languages(x)
+languages()
 
-version(x)
+version()
 
 test_setup(executable = get_default_executable())
 
