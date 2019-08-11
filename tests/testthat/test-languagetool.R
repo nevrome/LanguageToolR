@@ -8,7 +8,7 @@ test_that("languagetool works with text, file and directory input`", {
   expect_silent({output_file <- languagetool(file_name, tagger_only = TRUE)})
   expect_silent({output_dir  <- languagetool(dir_name,  tagger_only = TRUE)})
   
-  expect_is(output,      "character")
+  expect_is(output_text, "character")
   expect_is(output_file, "character")
   expect_is(output_dir,  "character")
   
@@ -37,8 +37,8 @@ test_that("languagetool fails where needed`", {
 
 test_that("languagetool JSON parsing works`", {
   
-  expect_silent({output <- languagetool(test_text[1], )})
-  expect_is(output, "character")
+  expect_silent({output <- languagetool(test_text[1])})
+  expect_is(output, "data.frame")
   
   # TODO: More tests are needed here to investigate the contents of the output
   
