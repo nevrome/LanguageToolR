@@ -18,3 +18,19 @@ test_that("languagetool works with text, file and directory input`", {
 
 })
 
+
+test_that("languagetool fails where needed`", {
+  
+  # No input
+  expect_error(languagetool(), info = "Error in languagetool() : No input defined.")
+  
+  # The 'executable' command is incorrect.
+  # Both warning (by `system()`) and error (by `languagetool()`) are returned.
+  expect_warning(
+    expect_error(
+      languagetool(test_text[1], tagger_only = TRUE, executable = "-")
+    )
+  )
+  
+})
+
