@@ -172,13 +172,13 @@ languagetool <- function(
     )
   
   #### call languagetool ####
-  output_json <- system(command, intern = TRUE, ignore.stderr = quiet)
+  langtool_output <- system(command, intern = TRUE, ignore.stderr = quiet)
   
   #### special output ####
   # special output if language list is requested
   if (list_languages) {
     languages <- lapply(
-      strsplit(output_json, " "),
+      strsplit(langtool_output, " "),
       function(x) {
         tibble::tibble(
           id = x[1],
@@ -192,16 +192,16 @@ languagetool <- function(
   # special output if tagger_only == TRUE or list_unknown == TRUE or
   # version == TRUE or apply == TRUE
   if (tagger_only | list_unknown | version | apply) {
-    return(output_json)
+    return(langtool_output)
   }
   
   # If `quiet = FALSE` and warnings exist, output contains non-JSON strings 
   # with messages, that fail to be parsed. They should be removed.
-  is_json <- sapply(output_json, jsonlite::validate, USE.NAMES = FALSE)
-  output_json <- output_json[is_json]
+  is_json <- sapply(langtool_output, jsonlite::validate, USE.NAMES = FALSE)
+  langtool_output <- langtool_output[is_json]
   
   #### regular output ####
-  output_df <- lato_parse_json(output_json)
+  output_df <- lato_parse_json(langtool_output)
   
   # return output tibble
   return(output_df)
