@@ -1,6 +1,10 @@
-[![Travis-CI Build Status](https://travis-ci.org/nevrome/LanguageToolR.svg?branch=master)](https://travis-ci.org/nevrome/LanguageToolR) [![Coverage Status](https://img.shields.io/codecov/c/github/nevrome/LanguageToolR/master.svg)](https://codecov.io/github/nevrome/LanguageToolR?branch=master)
+<!-- badges: start -->
+[![Travis-CI Build Status](https://travis-ci.org/nevrome/LanguageToolR.svg?branch=master)](https://travis-ci.org/nevrome/LanguageToolR) 
+[![Coverage Status](https://codecov.io/gh/nevrome/LanguageToolR/branch/master/graph/badge.svg)](https://codecov.io/github/nevrome/LanguageToolR?branch=master)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/LanguageToolR)](https://cran.r-project.org/package=LanguageToolR)
 [![license](https://img.shields.io/badge/license-GPL%203-B50B82.svg)](https://www.r-project.org/Licenses/GPL-2)
+<!-- badges: end -->
 
 # LanguageToolR
 
@@ -10,21 +14,24 @@
 
 ## Installation
 
-1. Install languagetool for your system. You can do this with the following setup function or directly from package sources for your OS or manually following the instructions here: https://github.com/languagetool-org/languagetool
 
-```
-LanguageToolR::quick_setup()
+1. Install this package via **remotes**
+
+```r
+if (!require(remotes)) install.packages("remotes")
+remotes::install_github("nevrome/LanguageToolR")
 ```
 
-2. Install this package via devtools
+2. Install languagetool for your system. You can do this with the following setup function or directly from package sources for your OS or manually following the instructions here: https://github.com/languagetool-org/languagetool
 
+```r
+LanguageToolR::lato_quick_setup()
 ```
-devtools::install_github("nevrome/LanguageToolR")
-```
+
 
 ## Usecase
 
-```
+```r
 testtext <- c(
   "LanguageTool offers spell and grammar checking.", 
   "Just paste your text here and click the 'Check Text' button.", 
