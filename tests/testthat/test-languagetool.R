@@ -15,7 +15,7 @@ test_that("languagetool works with text, file and directory input`", {
   # TODO: More tests are needed here to investigate the contents of the output.
   # E.g., to check the equivalence of the output with the same text but from 
   # different sources (text, file, directory).
-
+  
 })
 
 
@@ -25,19 +25,28 @@ test_that("languagetool fails where needed`", {
   expect_error(languagetool(), info = "Error in languagetool() : No input defined.")
   
   # The 'executable' command is incorrect.
-  # Both warning (by `system()`) and error (by `languagetool()`) are returned.
-  expect_warning(
+  
+  if (.Platform$OS.type != "windows") {
     expect_error(
       languagetool(test_text[1], tagger_only = TRUE, executable = "-")
     )
-  )
+    
+  } else {
+    # Both warning (by `system()`) and error (by `languagetool()`) are returned
+    # on Windows
+    expect_warning(
+      expect_error(
+        languagetool(test_text[1], tagger_only = TRUE, executable = "-")
+      )
+    )
+  }
   
 })
 
 
 test_that("languagetool JSON parsing works`", {
   
-  expect_silent({output <- languagetool(test_text[1])})
+  expect_silent({output <- languagetool(test_text)})
   expect_is(output, "data.frame")
   
   # TODO: More tests are needed here to investigate the contents of the output
