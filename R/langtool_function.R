@@ -133,7 +133,7 @@ languagetool <- function(
   } else {
     stop("No input defined.")
   }
-
+  
   #### Construct languagetool command ####
   command <-
     paste0(
@@ -195,9 +195,20 @@ languagetool <- function(
     return(output_json)
   }
   
-  #### normal output ####
+  #### regular output ####
+  output_df <- lato_parse_json(output_json)
+  
+  # return output tibble
+  return(output_df)
+}
+
+
+# Internal function: JSON to tibble parser
+lato_parse_json <- function(x) {
+  
+  #### regular output ####
   # json output to R list
-  output_list <- rjson::fromJSON(output_json)
+  output_list <- rjson::fromJSON(x)
   
   # R list to useful tibble
   output_df_list <- lapply(
@@ -224,10 +235,9 @@ languagetool <- function(
     }
   )
   output_df <- do.call(rbind, output_df_list)
-  
-  # return output tibble
   return(output_df)
 }
+
 
 #' @rdname languagetool
 #' @export
