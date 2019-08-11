@@ -34,3 +34,13 @@ test_that("languagetool fails where needed`", {
   
 })
 
+
+test_that("languagetool JSON parsing works`", {
+  
+  expect_silent({output <- languagetool(test_text[1], )})
+  expect_is(output, "character")
+  
+  # TODO: More tests are needed here to investigate the contents of the output
+  
+})
+
