@@ -2,8 +2,8 @@
 #' 
 #' Provides a wrapper for the 
 #' \href{http://wiki.languagetool.org/command-line-options}{LanguageTool CLI tool} 
-#' for spelling, grammar and language checking. \code{quick_setup} provides an easy
-#' option to automatically download LanguageTool.
+#' for spelling, grammar and language checking. \code{lato_quick_setup} provides 
+#' an easy option to automatically download LanguageTool.
 #'
 #' @param x Character vector. Text to analyse
 #' @param input_file Character. File to analyse (instead of x)
@@ -36,7 +36,7 @@
 #' @param profile Logical. Print performance measurements
 #' @param verbose Logical. Print text analysis (sentences, part-of-speech tags)
 #' @param version Logical. Print LanguageTool version number
-#' @param apply Logical. automatically apply suggestions if available, printing result. 
+#' @param apply Logical. Automatically apply suggestions if available, printing result. 
 #' NOTE: only use with very robust rules, as this will otherwise introduce new errors
 #' @param rule_file Character. Use an additional grammar file; if the filename 
 #' contains a known language code, it is used in addition of standard rules
@@ -59,14 +59,14 @@
 #' @param path Character. Directory where LanguageTool should be installed.
 #' @param quiet Logical. Should the console output of languagetool be displayed or hidden? 
 #'
-#' @return Tibble (data.frame) with the output of languagetool parsed from json. 
+#' @return A \code{\link[tibble]{tibble}} (\code{data.frame}) with the output of languagetool parsed from json. 
 #' Some options yield special outputs
 #' @rdname languagetool
 #' 
 #' @examples 
 #' # install LanguageTool if it is not already available
-#' if (!LanguageToolR::test_setup()) {
-#'   LanguageToolR::quick_setup()
+#' if (!LanguageToolR::lato_test_setup()) {
+#'   LanguageToolR::lato_quick_setup()
 #' }
 #' 
 #' # apply LanguageTool checks to some test text
@@ -78,7 +78,7 @@ languagetool <- function(
   input_file = NA_character_,
   input_directory = NA_character_,
   recursive = FALSE,
-  executable = get_default_executable(),
+  executable = lato_get_default_executable(),
   encoding = "utf-8",
   linebreak_paragraph = FALSE,
   language = "en-GB",
@@ -108,10 +108,10 @@ languagetool <- function(
   quiet = FALSE
 ) {
   
-  if (!test_setup(executable)) {
+  if (!lato_test_setup(executable)) {
     stop(
       "The provided executable is not available or does not work correctly. ",
-      "You can install LanguageTool with the quick_setup() function."
+      "You can install LanguageTool with the lato_quick_setup() function."
     )
   }
   
@@ -133,53 +133,52 @@ languagetool <- function(
   } else {
     stop("No input defined.")
   }
-
+  
   #### Construct languagetool command ####
-  command <- paste(
-    executable,
-    paste(
-      ifelse(recursive, paste("--recursive"), ""),
-      ifelse(!is.na(encoding), paste("--encoding", encoding), ""),
-      ifelse(linebreak_paragraph, paste("-b"), ""),
-      ifelse(!is.na(language), paste("--language", language), ""),
-      ifelse(list_languages, paste("--list"), ""),
-      ifelse(auto_detect_language, paste("--autoDetect"), ""),
-      ifelse(!is.na(mothertongue), paste("--mothertongue", mothertongue), ""),
-      ifelse(length(disabled_rules) != 0, paste("--disable", paste(disabled_rules, collapse = ",")), ""),
-      ifelse(length(enabled_rules) != 0, paste("--enable", paste(enabled_rules, collapse = ",")), ""),
-      ifelse(enabled_only, paste("--enabledonly"), ""),
-      ifelse(length(disabled_categories) != 0, paste("--disable", paste(disabled_categories, collapse = ",")), ""),
-      ifelse(length(enabled_categories) != 0, paste("--enable", paste(enabled_categories, collapse = ",")), ""),
-      ifelse(tagger_only, paste("--taggeronly"), ""),
-      ifelse(list_unknown, paste("--list-unknown"), ""),
-      ifelse(bitext, paste("--bitext"), ""),
-      ifelse(profile, paste("--profile"), ""),
-      ifelse(verbose, paste("--verbose"), ""),
-      ifelse(version, paste("--version"), ""),
-      ifelse(apply, paste("--apply"), ""),
-      ifelse(!is.na(rule_file), paste("--rulefile", rule_file), ""),
-      ifelse(!is.na(false_friends_file), paste("--falsefriends", false_friends_file), ""),
-      ifelse(!is.na(bitext_rules_file), paste("--bitextrules", bitext_rules_file), ""),
-      ifelse(!is.na(language_model_directory), paste("--languagemodel", language_model_directory), ""),
-      ifelse(!is.na(word2vec_model_directory), paste("--word2vecmodel", word2vec_model_directory), ""),
-      ifelse(!is.na(neural_network_model_directory), paste("--neuralnetworkmodel", neural_network_model_directory), ""),
-      ifelse(!is.na(fast_text_model_file), paste("--fasttextmodel", fast_text_model_file), ""),
-      ifelse(!is.na(fast_text_binary_file), paste("--fasttextbinary", fast_text_binary_file), ""),
+  command <-
+    paste0(
+      executable,
+      if (recursive)                                    " --recursive",
+      if (!is.na(encoding))                       paste(" --encoding", encoding),
+      if (linebreak_paragraph)                          " -b",
+      if (!is.na(language))                       paste(" --language", language),
+      if (list_languages)                               " --list",
+      if (auto_detect_language)                         " --autoDetect",
+      if (!is.na(mothertongue))                   paste(" --mothertongue", mothertongue),
+      if (length(disabled_rules) != 0)            paste(" --disable", paste(disabled_rules, collapse = ",")),
+      if (length(enabled_rules)  != 0)            paste(" --enable",  paste(enabled_rules,  collapse = ",")),
+      if (enabled_only)                                 " --enabledonly",
+      if (length(disabled_categories) != 0)       paste(" --disable", paste(disabled_categories, collapse = ",")),
+      if (length(enabled_categories)  != 0)       paste(" --enable",  paste(enabled_categories,  collapse = ",")),
+      if (tagger_only)                                  " --taggeronly",
+      if (list_unknown)                                 " --list-unknown",
+      if (bitext)                                       " --bitext", 
+      if (profile)                                      " --profile",
+      if (verbose)                                      " --verbose",
+      if (version)                                      " --version",
+      if (apply)                                        " --apply",  
+      if (!is.na(rule_file))                      paste(" --rulefile", rule_file),
+      if (!is.na(false_friends_file))             paste(" --falsefriends", false_friends_file),
+      if (!is.na(bitext_rules_file))              paste(" --bitextrules", bitext_rules_file),
+      if (!is.na(language_model_directory))       paste(" --languagemodel", language_model_directory),
+      if (!is.na(word2vec_model_directory))       paste(" --word2vecmodel", word2vec_model_directory),
+      if (!is.na(neural_network_model_directory)) paste(" --neuralnetworkmodel", neural_network_model_directory),
+      if (!is.na(fast_text_model_file))           paste(" --fasttextmodel",  fast_text_model_file), 
+      if (!is.na(fast_text_binary_file))          paste(" --fasttextbinary", fast_text_binary_file),
       # json
-      ifelse(!list_languages & !tagger_only & !list_unknown & !apply, "--json", ""),
+      if (!list_languages & !tagger_only & !list_unknown & !apply) " --json",
       # input
-      ifelse(!is.na(input), paste0('"', input, '"'), "")
+      if (!is.na(input)) paste0(' "', input, '"')
     )
-  )
   
   #### call languagetool ####
-  output_json <- system(command, intern = TRUE, ignore.stderr = quiet)
+  langtool_output <- system(command, intern = TRUE, ignore.stderr = quiet)
   
   #### special output ####
   # special output if language list is requested
   if (list_languages) {
     languages <- lapply(
-      strsplit(output_json, " "),
+      strsplit(langtool_output, " "),
       function(x) {
         tibble::tibble(
           id = x[1],
@@ -193,12 +192,27 @@ languagetool <- function(
   # special output if tagger_only == TRUE or list_unknown == TRUE or
   # version == TRUE or apply == TRUE
   if (tagger_only | list_unknown | version | apply) {
-    return(output_json)
+    return(langtool_output)
   }
   
-  #### normal output ####
+  # If `quiet = FALSE` and warnings exist, output contains non-JSON strings 
+  # with messages, that fail to be parsed. They should be removed.
+  is_json <- sapply(langtool_output, jsonlite::validate, USE.NAMES = FALSE)
+  langtool_output <- langtool_output[is_json]
+  
+  #### regular output ####
+  output_df <- lato_parse_json(langtool_output)
+  
+  # return output tibble
+  return(output_df)
+}
+
+# Internal function: JSON to tibble parser
+lato_parse_json <- function(x) {
+  
+  #### regular output ####
   # json output to R list
-  output_list <- rjson::fromJSON(output_json)
+  output_list <- rjson::fromJSON(x)
   
   # R list to useful tibble
   output_df_list <- lapply(
@@ -224,36 +238,42 @@ languagetool <- function(
       )
     }
   )
+  
   output_df <- do.call(rbind, output_df_list)
   
-  # return output tibble
+  # To have class-consistent output
+  if (is.null(output_df)) {
+    output_df <- tibble::tibble()
+  }
+  
   return(output_df)
 }
 
+
 #' @rdname languagetool
 #' @export
-languages <- function() {
+lato_list_languages <- function() {
   languagetool(list_languages = TRUE)
 }
 
 #' @rdname languagetool
 #' @export
-version <- function() {
+lato_get_version <- function() {
   languagetool(version = TRUE)
 }
 
 #' @rdname languagetool
 #' @export
-test_setup <- function(executable = get_default_executable()) {
+lato_test_setup <- function(executable = lato_get_default_executable()) {
   system(paste(executable, "--version"), ignore.stdout = TRUE, ignore.stderr = TRUE) == 0
 }
 
 #' @rdname languagetool
 #' @export
-get_default_executable <- function() {
+lato_get_default_executable <- function() {
   paste0(
     'java -jar "', 
-    path.expand('~/LanguageTool-4.6/languagetool-commandline.jar'),
+    path.expand(paste0('~/LanguageTool-', languagetool_version, '/languagetool-commandline.jar')),
     '"')
 }
 

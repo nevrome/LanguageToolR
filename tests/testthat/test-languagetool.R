@@ -49,6 +49,10 @@ test_that("languagetool JSON parsing works`", {
   expect_silent({output <- languagetool(test_text)})
   expect_is(output, "data.frame")
   
+  # Should be an empty tibble and not NULL
+  expect_silent({output_2 <- languagetool("")})
+  expect_is(output_2, "data.frame")
+
   # TODO: More tests are needed here to investigate the contents of the output
   
 })
