@@ -238,7 +238,14 @@ lato_parse_json <- function(x) {
       )
     }
   )
+  
   output_df <- do.call(rbind, output_df_list)
+  
+  # To have class-consistent output
+  if (is.null(output_df)) {
+    output_df <- tibble::tibble()
+  }
+  
   return(output_df)
 }
 
