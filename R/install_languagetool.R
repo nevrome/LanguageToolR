@@ -5,6 +5,11 @@ languagetool_version <- 4.6
 #' @export
 lato_quick_setup <- function(path = "~") {
   
+  # check if the correct java version is available
+  if (!lato_is_java_64bit_available()) {
+    warning("LanguageTool requires a 64-bit version of JAVA.")
+  }
+  
   # Resolve "~" to appropriate directory
   path <- path.expand(path)
   
@@ -28,4 +33,9 @@ lato_download <- function(path){
   message("Unpacking archive...")
   utils::unzip(temp, exdir = path, overwrite = TRUE)
   unlink(temp)
+}
+
+lato_is_java_64bit_available <- function() {
+  java_version_output <- system2("java" , c("-XshowSettings:properties", "-version"), stderr = TRUE, stdout = TRUE)
+  return(any(grepl("sun.arch.data.model = 64", java_version_output)))
 }
