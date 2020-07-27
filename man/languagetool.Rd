@@ -12,23 +12,40 @@
 \usage{
 lato_quick_setup(path = "~")
 
-languagetool(x = c(), input_file = NA_character_,
-  input_directory = NA_character_, recursive = FALSE,
-  executable = lato_get_default_executable(), encoding = "utf-8",
-  linebreak_paragraph = FALSE, language = "en-GB",
-  list_languages = FALSE, auto_detect_language = FALSE,
-  mothertongue = NA_character_, disabled_rules = c(),
-  enabled_rules = c(), enabled_only = FALSE,
-  disabled_categories = c(), enabled_categories = c(),
-  tagger_only = FALSE, list_unknown = FALSE, bitext = FALSE,
-  profile = FALSE, verbose = FALSE, version = FALSE, apply = FALSE,
-  rule_file = NA_character_, false_friends_file = NA_character_,
+languagetool(
+  x = c(),
+  input_file = NA_character_,
+  input_directory = NA_character_,
+  recursive = FALSE,
+  executable = lato_get_default_executable(),
+  encoding = "utf-8",
+  linebreak_paragraph = FALSE,
+  language = "en-GB",
+  list_languages = FALSE,
+  auto_detect_language = FALSE,
+  mothertongue = NA_character_,
+  disabled_rules = c(),
+  enabled_rules = c(),
+  enabled_only = FALSE,
+  disabled_categories = c(),
+  enabled_categories = c(),
+  tagger_only = FALSE,
+  list_unknown = FALSE,
+  bitext = FALSE,
+  profile = FALSE,
+  verbose = FALSE,
+  version = FALSE,
+  apply = FALSE,
+  rule_file = NA_character_,
+  false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
   word2vec_model_directory = NA_character_,
   neural_network_model_directory = NA_character_,
   fast_text_model_file = NA_character_,
-  fast_text_binary_file = NA_character_, quiet = FALSE)
+  fast_text_binary_file = NA_character_,
+  quiet = FALSE
+)
 
 lato_list_languages()
 
