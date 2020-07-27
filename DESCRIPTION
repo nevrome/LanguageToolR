@@ -1,7 +1,10 @@
 Package: LanguageToolR
 Title: Provides a wrapper for the LanguageTool CLI tool for spelling, grammar and language checking
 Version: 0.1.3
-Authors@R: person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut"))
+Authors@R: c(
+    person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut")),
+    person("Vilmantas", "Gegzna", role = c("ctb"))
+    )
 Description: The wrapper is complete and offers all current functions of the CLI tool. More information can be found in the LanguageTool Wiki: wiki.languagetool.org. 
 Depends: R (>= 3.4.0)
 License: GPL-3 | file LICENSE
