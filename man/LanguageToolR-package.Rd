@@ -4,7 +4,7 @@
 \name{LanguageToolR-package}
 \alias{LanguageToolR}
 \alias{LanguageToolR-package}
-\title{LanguageToolR: Provides a wrapper for the LanguageTool CLI tool for spelling, grammar and language checking}
+\title{LanguageToolR: Provides a Wrapper for the LanguageTool CLI Tool for Spelling, Grammar and Language Checking}
 \description{
 More information about the LanguageTool CLI tool and its options can be found in the LanguageTool Wiki: wiki.languagetool.org.
 }

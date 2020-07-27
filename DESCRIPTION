@@ -1,5 +1,5 @@
 Package: LanguageToolR
-Title: Provides a wrapper for the LanguageTool CLI tool for spelling, grammar and language checking
+Title: Provides a Wrapper for the LanguageTool CLI Tool for Spelling, Grammar and Language Checking
 Version: 0.1.3
 Authors@R: c(
     person(given = "Clemens",
