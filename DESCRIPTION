@@ -2,8 +2,15 @@ Package: LanguageToolR
 Title: Provides a wrapper for the LanguageTool CLI tool for spelling, grammar and language checking
 Version: 0.1.3
 Authors@R: c(
-    person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut")),
-    person("Vilmantas", "Gegzna", role = c("ctb"))
+    person(given = "Clemens",
+             family = "Schmid",
+             role = c("aut", "cre", "cph"),
+             email = "clemens@nevrome.de",
+             comment = c(ORCID = "0000-0003-3448-5715")),
+    person(given = "Vilmantas",
+             family = "Gegzna",
+             role = c("ctb"),
+             comment = c(ORCID = "0000-0002-9500-5167"))
     )
 Description: The wrapper is complete and offers all current functions of the CLI tool. More information can be found in the LanguageTool Wiki: wiki.languagetool.org. 
 Depends: R (>= 3.4.0)
