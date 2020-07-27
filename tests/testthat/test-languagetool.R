@@ -49,12 +49,15 @@ test_that("languagetool JSON parsing works`", {
   
   expect_silent({output <- languagetool(test_text)})
   expect_is(output, "data.frame")
+  # store result: output_stored <- output; save(output_stored, file = "inst/expected_output/expected_output.RData")
   
   # Should be an empty tibble and not NULL
   expect_silent({output_2 <- languagetool("")})
   expect_is(output_2, "data.frame")
-
-  # TODO: More tests are needed here to investigate the contents of the output
+  
+  # check if the output is exactly as expected and previously recorded
+  load(system.file(package = "LanguageToolR", "expected_output", "expected_output.RData"))
+  expect_identical(output, output_stored)
   
 })
 
