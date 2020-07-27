@@ -3,7 +3,7 @@ sudo: true
 cache:
   packages: true
   directories:
-  - $HOME/LanguageTool-4.6
+  - $HOME/LanguageTool-5.0
 r_packages:
   - covr
 
