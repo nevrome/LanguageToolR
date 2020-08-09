@@ -66,13 +66,15 @@
 #' @rdname languagetool
 #' 
 #' @examples 
+#' \donttest{
 #' # install LanguageTool if it is not already available
 #' if (!LanguageToolR::lato_test_setup()) {
-#'   LanguageToolR::lato_quick_setup()
+#'   LanguageToolR::lato_quick_setup(overwrite = TRUE)
 #' }
 #' 
 #' # apply LanguageTool checks to some test text
 #' languagetool(test_text)
+#' }
 #' 
 #' @export
 languagetool <- function( 
