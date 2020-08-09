@@ -57,6 +57,8 @@
 #' @param fast_text_binary_file Character. fasttext executable, 
 #' see https://fasttext.cc/docs/en/support.html
 #' @param path Character. Directory where LanguageTool should be installed.
+#' @param overwrite Logical. Should the user not be asked whether she would like to 
+#' overwrite an already available LanguageTool installation? (Default: FALSE)
 #' @param quiet Logical. Should the console output of languagetool be displayed or hidden? 
 #'
 #' @return A \code{\link[tibble]{tibble}} (\code{data.frame}) with the output of languagetool parsed from json. 

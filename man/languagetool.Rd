@@ -10,7 +10,7 @@
 \alias{test_text}
 \title{LanguageTool API function}
 \usage{
-lato_quick_setup(path = "~")
+lato_quick_setup(path = "~", overwrite = FALSE)
 
 languagetool(
   x = c(),
@@ -57,6 +57,9 @@ lato_get_default_executable()
 }
 \arguments{
 \item{path}{Character. Directory where LanguageTool should be installed.}
+
+\item{overwrite}{Logical. Should the user not be asked whether she would like to 
+overwrite an already available LanguageTool installation? (Default: FALSE)}
 
 \item{x}{Character vector. Text to analyse}
 
