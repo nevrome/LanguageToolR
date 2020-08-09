@@ -13,6 +13,7 @@ Authors@R: c(
              comment = c(ORCID = "0000-0002-9500-5167"))
     )
 Description: More information about the LanguageTool CLI tool and its options can be found in the LanguageTool Wiki: wiki.languagetool.org. 
+Depends: R (>= 3.5.0)
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
