@@ -13,16 +13,15 @@ Authors@R: c(
              comment = c(ORCID = "0000-0002-9500-5167"))
     )
 Description: More information about the LanguageTool CLI tool and its options can be found in the LanguageTool Wiki: wiki.languagetool.org. 
-Depends: R (>= 3.4.0)
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Imports:
-    rjson (>= 0.2.20),
-    tibble (>= 1.4.2),
+    rjson,
+    tibble,
     jsonlite
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat
 SystemRequirements:
     LanguageTool
