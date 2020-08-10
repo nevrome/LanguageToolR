@@ -2,9 +2,9 @@ test_that("lato_get_default_executable()", {
 
   expected_str <- paste0(
     "java -jar \"",
-    path.expand("~"),
+    path.expand(lato_default_path()),
     "/LanguageTool-",
-    languagetool_version,
+    lato_default_version(),
     "/languagetool-commandline.jar\""
   )
   

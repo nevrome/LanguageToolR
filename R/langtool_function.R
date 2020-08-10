@@ -277,7 +277,11 @@ lato_test_setup <- function(executable = lato_get_default_executable()) {
 lato_get_default_executable <- function() {
   paste0(
     'java -jar "', 
-    path.expand(paste0('~/LanguageTool-', languagetool_version, '/languagetool-commandline.jar')),
+    path.expand(paste0(
+      lato_default_path(),
+      '/LanguageTool-', lato_default_version(), 
+      '/languagetool-commandline.jar'
+    )),
     '"')
 }
 
