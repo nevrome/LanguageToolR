@@ -1,9 +1,15 @@
 # The version of languagetool currently supported/recommended by this package
-languagetool_version <- "5.0"
+lato_default_version <- function() {
+  "5.0"
+}
+
+lato_default_path <- function() {
+  "~"
+}
 
 #' @rdname languagetool
 #' @export
-lato_quick_setup <- function(path = "~", overwrite = FALSE) {
+lato_quick_setup <- function(path = lato_default_path(), overwrite = FALSE) {
   
   should_the_download_happen <- TRUE
   
@@ -22,7 +28,8 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE) {
     message(paste(available_versions, collapse = ", "))
   }
   
-  version_that_would_be_created <- paste0("LanguageTool-", languagetool_version)
+  version_that_would_be_created <- paste0("LanguageTool-", lato_default_version())
+  
   if (!overwrite && version_that_would_be_created %in% available_versions) {
     message(paste(
       "The version that would be downloaded is already there:", 
@@ -45,7 +52,7 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE) {
   # how to call languagetool
   jar_file <- file.path(
     path, 
-    paste0("LanguageTool-", languagetool_version),
+    paste0("LanguageTool-", lato_default_version()),
     "languagetool-commandline.jar"
   )
   message("Path to the executable:")
@@ -53,10 +60,12 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE) {
 }
 
 # Internal to download the tool
-lato_download <- function(path){
+lato_download <- function(path) {
   temp <- tempfile()
-  url <- paste0("https://www.languagetool.org/download/LanguageTool-",
-    languagetool_version,".zip")
+  url <- paste0(
+    "https://www.languagetool.org/download/",
+    "LanguageTool-", lato_default_version(), ".zip"
+  )
   
   utils::download.file(url, temp)
   message("Unpacking archive...")
@@ -65,7 +74,9 @@ lato_download <- function(path){
 }
 
 lato_is_java_64bit_available <- function() {
-  java_version_output <- system2("java" , c("-XshowSettings:properties", "-version"), stderr = TRUE, stdout = TRUE)
+  java_version_output <- system2("java" , 
+    c("-XshowSettings:properties", "-version"), stderr = TRUE, stdout = TRUE
+  )
   return(any(grepl("sun.arch.data.model = 64", java_version_output)))
 }
 
@@ -87,8 +98,8 @@ check_is_online <- function() {
 }
 
 
-# Finds the most current released verion of LanguageTool.
-# Intesnet connection is required.
+# Finds the most current released version of LanguageTool.
+# Internet connection is required.
 lato_check_online_version <- function() {
   if (!check_is_online()) {
     stop(
@@ -102,4 +113,5 @@ lato_check_online_version <- function() {
   versions <- as.numeric_version(regmatches(text, m = matches))
   max(versions)
 }
+
 

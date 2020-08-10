@@ -10,7 +10,7 @@
 \alias{test_text}
 \title{LanguageTool API function}
 \usage{
-lato_quick_setup(path = "~", overwrite = FALSE)
+lato_quick_setup(path = lato_default_path(), overwrite = FALSE)
 
 languagetool(
   x = c(),
