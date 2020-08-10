@@ -108,8 +108,8 @@ extract_versions <- function(text, pattern) {
 # Finds the most current released version of LanguageTool.
 # Internet connection is required.
 # @examples 
-# lato_check_online_version()
-lato_check_online_version <- function() {
+# lato_get_online_version()
+lato_get_online_version <- function() {
   if (!check_is_online()) {
     stop(
       "This function requires Internet connection but it seems that your ",
