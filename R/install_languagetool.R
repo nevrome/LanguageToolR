@@ -153,3 +153,23 @@ lato_remove <- function(version = lato_default_version(), path = lato_default_pa
     warning("Directory was not found: \n", tool_dir, call. = FALSE)
   }
 }
+
+
+# Removes older version of LanguageTool, if present
+lato_remove_old_versions <- function(path = lato_default_path()) {
+  v_installed <- lato_get_installed_versions(path = path)
+  v_newest <- max(v_installed)
+  v_old <- setdiff(as.numeric_version(v_installed), as.numeric_version(v_newest))
+  
+  if (length(v_old) == 0) {
+    message("No old versions of LanguageTool were found.")
+  } else {
+    message(
+      "Removing directories with old versions (",
+      paste(v_old, collapse = ", "),
+      ") of LanguageTool..."
+    )
+    lapply(as.list(v_old), lato_remove, path = path)
+  }
+}
+
