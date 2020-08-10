@@ -98,8 +98,17 @@ check_is_online <- function() {
 }
 
 
+
+extract_versions <- function(text, pattern) {
+  matches <- regexpr(pattern = pattern, text = text, perl = TRUE)
+  versions <- as.numeric_version(regmatches(text, m = matches))
+  versions
+}
+
 # Finds the most current released version of LanguageTool.
 # Internet connection is required.
+# @examples 
+# lato_check_online_version()
 lato_check_online_version <- function() {
   if (!check_is_online()) {
     stop(
@@ -107,10 +116,11 @@ lato_check_online_version <- function() {
       "machine is offline. Please check the Internet connection and try again."
     )
   }
-  text <- readLines("https://www.languagetool.org/download/")
-  patt <- "(?<=LanguageTool-)\\d{1,2}[.]\\d{1,2}(?=[.]zip)"
-  matches <- regexpr(pattern = patt, text = text, perl = TRUE)
-  versions <- as.numeric_version(regmatches(text, m = matches))
+  versions <-
+    extract_versions(
+      text = readLines("https://www.languagetool.org/download/"),
+      pattern = "(?<=LanguageTool-)\\d{1,2}[.]\\d{1,2}(?=[.]zip)"
+    )
   max(versions)
 }
 
