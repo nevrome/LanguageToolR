@@ -1,8 +1,5 @@
-# show version
-print(lato_get_version())
-
 test_that("languagetool output in is empty data.frame in case of empty input`", {
-  expect_silent({output_empty <- languagetool("")})
+  expect_silent({output_empty <- languagetool("", executable = current_executable)})
   expect_is(output_empty, "data.frame")
   expect_equal(nrow(output_empty), 0)
 })
@@ -10,9 +7,9 @@ test_that("languagetool output in is empty data.frame in case of empty input`", 
 # run test for same text from different sources
 file_name <- system.file(package = "LanguageToolR", "test", "test_text.txt")
 dir_name  <- system.file(package = "LanguageToolR", "test")
-output_text <- languagetool(test_text)
-output_file <- languagetool(input_file = file_name)
-output_dir  <- languagetool(input_directory = dir_name, recursive = TRUE)
+output_text <- languagetool(test_text, executable = current_executable)
+output_file <- languagetool(input_file = file_name, executable = current_executable)
+output_dir  <- languagetool(input_directory = dir_name, recursive = TRUE, executable = current_executable)
 
 test_that("languagetool returns data.frames`", {
   expect_is(output_text, "data.frame")
@@ -37,7 +34,7 @@ test_that("languagetool JSON parsing works`", {
 
 test_that("languagetool fails where needed`", {
   # No input
-  expect_error(languagetool(), info = "Error in languagetool() : No input defined.")
+  expect_error(languagetool(executable = current_executable), info = "Error in languagetool() : No input defined.")
   # The 'executable' command is incorrect.
   if (.Platform$OS.type != "windows") {
     expect_error(

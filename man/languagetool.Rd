@@ -47,9 +47,9 @@ languagetool(
   quiet = FALSE
 )
 
-lato_list_languages()
+lato_list_languages(executable = lato_get_default_executable())
 
-lato_get_version()
+lato_get_version(executable = lato_get_default_executable())
 
 lato_test_setup(executable = lato_get_default_executable())
 

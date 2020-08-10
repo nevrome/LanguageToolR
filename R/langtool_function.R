@@ -256,14 +256,14 @@ lato_parse_json <- function(x) {
 
 #' @rdname languagetool
 #' @export
-lato_list_languages <- function() {
-  languagetool(list_languages = TRUE)
+lato_list_languages <- function(executable = lato_get_default_executable()) {
+  languagetool(executable = executable, list_languages = TRUE)
 }
 
 #' @rdname languagetool
 #' @export
-lato_get_version <- function() {
-  languagetool(version = TRUE)
+lato_get_version <- function(executable = lato_get_default_executable()) {
+  languagetool(executable = executable, version = TRUE)
 }
 
 #' @rdname languagetool
