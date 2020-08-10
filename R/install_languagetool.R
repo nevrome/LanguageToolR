@@ -125,8 +125,8 @@ lato_get_online_version <- function() {
 }
 
 
-# Gets LanguageTool versions installed in the same dir in which
-# lato_quick_setup() installs LanguageTool.
+# Gets LanguageTool versions installed in the same dir, which is used by
+# lato_quick_setup() by default.
 # @examples 
 # lato_get_installed_versions()
 lato_get_installed_versions <- function(path = lato_default_path()) {
