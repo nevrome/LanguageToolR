@@ -86,3 +86,20 @@ check_is_online <- function() {
   any(grep(valid_ip_pattern, ip_config_message))
 }
 
+
+# Finds the most current released verion of LanguageTool.
+# Intesnet connection is required.
+lato_check_online_version <- function() {
+  if (!check_is_online()) {
+    stop(
+      "This function requires Internet connection but it seems that your ",
+      "machine is offline. Please check the Internet connection and try again."
+    )
+  }
+  text <- readLines("https://www.languagetool.org/download/")
+  patt <- "(?<=LanguageTool-)\\d{1,2}[.]\\d{1,2}(?=[.]zip)"
+  matches <- regexpr(pattern = patt, text = text, perl = TRUE)
+  versions <- as.numeric_version(regmatches(text, m = matches))
+  max(versions)
+}
+
