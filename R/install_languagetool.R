@@ -135,3 +135,8 @@ lato_get_installed_versions <- function(path = lato_default_path()) {
     pattern = "(?<=LanguageTool-)\\d{1,2}[.]\\d{1,2}$"
   )
 }
+
+# Makes a more reliable path
+make_path <- function(...) {
+  normalizePath(file.path(...), winslash = "/", mustWork = FALSE)
+}
