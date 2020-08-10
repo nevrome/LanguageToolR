@@ -140,3 +140,16 @@ lato_get_installed_versions <- function(path = lato_default_path()) {
 make_path <- function(...) {
   normalizePath(file.path(...), winslash = "/", mustWork = FALSE)
 }
+
+# Removes current (or indicated) version of LanguageTool
+lato_remove <- function(version = lato_default_version(), path = lato_default_path()) {
+  tool_dir <- make_path(path, paste0("LanguageTool-", version))
+  if (dir.exists(tool_dir)) {
+    message("Removing: ", tool_dir)
+    unlink(tool_dir, recursive = TRUE, force = TRUE)
+    message("  DONE")
+    
+  } else {
+    warning("Directory was not found: \n", tool_dir, call. = FALSE)
+  }
+}
