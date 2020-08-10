@@ -1,5 +1,6 @@
 <!-- badges: start -->
 [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+[![R-CMD-check](https://github.com/nevrome/LanguageToolR/workflows/R-CMD-check/badge.svg)](https://github.com/nevrome/LanguageToolR/actions)
 [![Travis-CI Build Status](https://travis-ci.org/nevrome/LanguageToolR.svg?branch=master)](https://travis-ci.org/nevrome/LanguageToolR) 
 [![Coverage Status](https://codecov.io/gh/nevrome/LanguageToolR/branch/master/graph/badge.svg)](https://codecov.io/github/nevrome/LanguageToolR?branch=master)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/LanguageToolR)](https://cran.r-project.org/package=LanguageToolR)
