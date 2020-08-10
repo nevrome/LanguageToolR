@@ -173,3 +173,28 @@ lato_remove_old_versions <- function(path = lato_default_path()) {
   }
 }
 
+
+# Checks for updates of LanguageTool
+lato_check_for_updates <- function(path = lato_default_path()) {
+  v_online <- lato_get_online_version()
+  v_installed <- lato_get_installed_versions()
+  
+  if (v_online > max(v_installed)) {
+   message("An update to LanguageTool-", v_online, " is available.")
+    # TODO: ask if a user wants to update
+    # message("Updating to LanguageTool-", v_online)
+    # lato_quick_setup()
+    
+    # TODO: ask if a user wants to remove old versions of LanguageTool.
+    # if (isTRUE(remove_old)) {
+    #   lato_remove_old_versions()
+    # }
+    
+  } else {
+    message(
+      "The most recent version (LanguageTool-", v_online, ") ",
+      "is already present."
+    )
+  }
+}
+
