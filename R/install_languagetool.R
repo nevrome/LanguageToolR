@@ -35,7 +35,7 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE) {
       should_the_download_happen <- FALSE
     }
   }
-    
+  
   # download languagetool
   if (should_the_download_happen) {
     message(paste("Now downloading:", version_that_would_be_created))
@@ -68,3 +68,21 @@ lato_is_java_64bit_available <- function() {
   java_version_output <- system2("java" , c("-XshowSettings:properties", "-version"), stderr = TRUE, stdout = TRUE)
   return(any(grepl("sun.arch.data.model = 64", java_version_output)))
 }
+
+# Checks if computer (machine) has valid IP.
+# If valid IP addess is detected in ip/if config, it is treated as machine
+# has Internet connection. A better solution might be pingr::is_online()
+check_is_online <- function() {
+  ip_config_message <-
+    if (.Platform$OS.type == "windows") {
+      system2("ipconfig", stdout = TRUE, stderr = FALSE)
+      
+    } else {
+      system2("ifconfig", stdout = TRUE, stderr = FALSE)
+    }
+  
+  ip_digits_pattern <- "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+  valid_ip_pattern <- paste(rep(ip_digits_pattern, 4), collapse = "[.]")
+  any(grep(valid_ip_pattern, ip_config_message))
+}
+
