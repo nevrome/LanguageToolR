@@ -1,5 +1,5 @@
 # The version of languagetool currently supported/recommended by this package
-languagetool_version <- "5.0"
+languagetool_version <- "5.9"
 
 #' @rdname languagetool
 #' @export
