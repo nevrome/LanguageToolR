@@ -89,15 +89,15 @@ checking for languages with variants}
 \item{mothertongue}{Character. The language code of your first language, used to 
 activate false-friend checking}
 
-\item{disabled_rules}{Integer vector. List of rule ids to be disabled}
+\item{disabled_rules}{Character vector. List of rule ids to be disabled}
 
-\item{enabled_rules}{Integer vector. List of rule ids to be enabled}
+\item{enabled_rules}{Character vector. List of rule ids to be enabled}
 
 \item{enabled_only}{Logical. Disable all rules except those enabled explicitly}
 
-\item{disabled_categories}{Integer vector. List of category ids to be disabled}
+\item{disabled_categories}{Character vector. List of category ids to be disabled}
 
-\item{enabled_categories}{Integer vector. List of category ids to be enabled}
+\item{enabled_categories}{Character vector. List of category ids to be enabled}
 
 \item{tagger_only}{Logical. Don't check, but only print text analysis (sentences, 
 part-of-speech tags)}
