@@ -22,11 +22,11 @@
 #' checking for languages with variants
 #' @param mothertongue Character. The language code of your first language, used to 
 #' activate false-friend checking
-#' @param disabled_rules Integer vector. List of rule ids to be disabled
-#' @param enabled_rules Integer vector. List of rule ids to be enabled
+#' @param disabled_rules Character vector. List of rule ids to be disabled
+#' @param enabled_rules Character vector. List of rule ids to be enabled
 #' @param enabled_only Logical. Disable all rules except those enabled explicitly
-#' @param disabled_categories Integer vector. List of category ids to be disabled
-#' @param enabled_categories Integer vector. List of category ids to be enabled
+#' @param disabled_categories Character vector. List of category ids to be disabled
+#' @param enabled_categories Character vector. List of category ids to be enabled
 #' @param tagger_only Logical. Don't check, but only print text analysis (sentences, 
 #' part-of-speech tags)
 #' @param list_unknown Logical. Also print a summary of words from the input that 
