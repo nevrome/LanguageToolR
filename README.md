@@ -12,7 +12,7 @@
 
 :heavy_exclamation_mark: We're not part of the LanguageTool team. This is an unofficial interface.
 
-We only tested with LanguageTool **5.0**, but it might as well work with other versions.
+We only tested with LanguageTool **5.9**, but it might as well work with other versions.
 
 ## Installation
 
