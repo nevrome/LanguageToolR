@@ -1,5 +1,5 @@
 # The version of languagetool currently supported/recommended by this package
-languagetool_version <- "5.0"
+languagetool_version <- "5.9"
 
 #' @rdname languagetool
 #' @export
@@ -58,7 +58,11 @@ lato_download <- function(path){
   url <- paste0("https://www.languagetool.org/download/LanguageTool-",
     languagetool_version,".zip")
   
+  timeout<- getOption("timeout")
+  options(timeout=300)
   utils::download.file(url, temp)
+  options(timeout=timeout)
+  
   message("Unpacking archive...")
   utils::unzip(temp, exdir = path, overwrite = TRUE)
   unlink(temp)
