@@ -1,0 +1,51 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: [any::rcmdcheck, any::covr]
+          needs: [check, coverage]
+          
+#      - name: Install LanguageTool
+#        run: |
+#          LanguageToolR::lato_quick_setup(path = "~")
+#        shell: Rscript {0}
+        
+      - name: Cache LanguageTool
+        id: cache-lato
+        uses: actions/cache@v3
+        with:
+          path: ~/LanguageTool-*
+          key: ${{ runner.os }}-${{ hashFiles('R/install_languagetool.R') }}-lato
+
+      - name: Package check
+        uses: r-lib/actions/check-r-package@v2
+
+      - name: Test coverage
+        run: |
+          covr::codecov(
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
+          )
+        shell: Rscript {0}
