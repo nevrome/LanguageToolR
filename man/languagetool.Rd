@@ -10,7 +10,7 @@
 \alias{test_text}
 \title{LanguageTool API function}
 \usage{
-lato_quick_setup(path = "~", overwrite = FALSE)
+lato_quick_setup(path = "~", overwrite = FALSE, timeout = 300)
 
 languagetool(
   x = c(),
@@ -60,6 +60,8 @@ lato_get_default_executable()
 
 \item{overwrite}{Logical. Should the user not be asked whether she would like to 
 overwrite an already available LanguageTool installation? (Default: FALSE)}
+
+\item{timeout}{Integer. Maximum download time in seconds. See ?utils::download.file}
 
 \item{x}{Character vector. Text to analyse}
 

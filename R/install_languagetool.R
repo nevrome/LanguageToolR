@@ -3,7 +3,7 @@ languagetool_version <- "5.9"
 
 #' @rdname languagetool
 #' @export
-lato_quick_setup <- function(path = "~", overwrite = FALSE) {
+lato_quick_setup <- function(path = "~", overwrite = FALSE, timeout = 300) {
   
   should_the_download_happen <- TRUE
   
@@ -39,7 +39,7 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE) {
   # download languagetool
   if (should_the_download_happen) {
     message(paste("Now downloading:", version_that_would_be_created))
-    lato_download(path)
+    lato_download(path, timeout)
   }
   
   # how to call languagetool
@@ -53,15 +53,15 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE) {
 }
 
 # Internal to download the tool
-lato_download <- function(path){
+lato_download <- function(path, timeout){
   temp <- tempfile()
   url <- paste0("https://www.languagetool.org/download/LanguageTool-",
     languagetool_version,".zip")
   
-  timeout<- getOption("timeout")
-  options(timeout=300)
+  timeout_old <- getOption("timeout")
+  options(timeout = timeout)
   utils::download.file(url, temp)
-  options(timeout=timeout)
+  options(timeout = timeout_old)
   
   message("Unpacking archive...")
   utils::unzip(temp, exdir = path, overwrite = TRUE)
