@@ -10,7 +10,11 @@ Authors@R: c(
     person(given = "Vilmantas",
              family = "Gegzna",
              role = c("ctb"),
-             comment = c(ORCID = "0000-0002-9500-5167"))
+             comment = c(ORCID = "0000-0002-9500-5167")),
+    person(given = "Joan",
+             family = "Maspons",
+             role = c("ctb"),
+             comment=c(ORCID="0000-0003-2286-8727"))
     )
 Description: More information about the LanguageTool CLI tool and its options can be found in the LanguageTool Wiki: wiki.languagetool.org. 
 Depends: R (>= 3.5.0)

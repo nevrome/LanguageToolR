@@ -14,6 +14,7 @@ More information about the LanguageTool CLI tool and its options can be found in
 Other contributors:
 \itemize{
   \item Vilmantas Gegzna (\href{https://orcid.org/0000-0002-9500-5167}{ORCID}) [contributor]
+  \item Joan Maspons (\href{https://orcid.org/0000-0003-2286-8727}{ORCID}) [contributor]
 }
 
 }
