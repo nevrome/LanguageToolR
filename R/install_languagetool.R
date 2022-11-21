@@ -58,7 +58,11 @@ lato_download <- function(path){
   url <- paste0("https://www.languagetool.org/download/LanguageTool-",
     languagetool_version,".zip")
   
+  timeout<- getOption("timeout")
+  options(timeout=300)
   utils::download.file(url, temp)
+  options(timeout=timeout)
+  
   message("Unpacking archive...")
   utils::unzip(temp, exdir = path, overwrite = TRUE)
   unlink(temp)
