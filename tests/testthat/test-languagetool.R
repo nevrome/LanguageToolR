@@ -36,17 +36,10 @@ test_that("languagetool fails where needed`", {
   # No input
   expect_error(languagetool(executable = current_executable), info = "Error in languagetool() : No input defined.")
   # The 'executable' command is incorrect.
-  if (.Platform$OS.type != "windows") {
+  # Both warning (by `system()`) and error (by `languagetool()`) are returned
+  expect_warning(
     expect_error(
       languagetool(test_text[1], tagger_only = TRUE, executable = "-")
     )
-  } else {
-    # Both warning (by `system()`) and error (by `languagetool()`) are returned
-    # on Windows
-    expect_warning(
-      expect_error(
-        languagetool(test_text[1], tagger_only = TRUE, executable = "-")
-      )
-    )
-  }
+  )
 })

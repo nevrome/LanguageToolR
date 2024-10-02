@@ -1,3 +1,8 @@
+# LanguageToolR 0.1.5
+
+* Switched to LanguageToolR 6.5
+* Added a better error message in case java is not installed
+
 # LanguageToolR 0.1.4
 
 * Switched to LanguageTool 5.9
