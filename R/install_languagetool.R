@@ -1,5 +1,5 @@
 # The version of languagetool currently supported/recommended by this package
-languagetool_version <- "5.9"
+languagetool_version <- "6.5"
 
 #' @rdname languagetool
 #' @export
@@ -8,8 +8,12 @@ lato_quick_setup <- function(path = "~", overwrite = FALSE, timeout = 300) {
   should_the_download_happen <- TRUE
   
   # check if the correct java version is available
-  if (!lato_is_java_64bit_available()) {
-    warning("LanguageTool requires a 64-bit version of JAVA.")
+  if (!lato_is_java_available() || !lato_is_java_64bit_available()) {
+    stop("LanguageTool requires a 64-bit version of JAVA.")
+  }
+  
+  if (!lato_is_java_available() && !lato_is_java_64bit_available()) {
+    stop("LanguageTool requires a 64-bit version of JAVA.")
   }
   
   # resolve "~" to appropriate directory
@@ -66,6 +70,16 @@ lato_download <- function(path, timeout){
   message("Unpacking archive...")
   utils::unzip(temp, exdir = path, overwrite = TRUE)
   unlink(temp)
+}
+
+lato_is_java_available <- function() {
+  tryCatch(
+    {system2("java", stdout = FALSE, stderr = FALSE)},
+    warning = function(w) {
+      message("Cannot find a JAVA executable. Make sure JAVA is installed correctly on your system.")
+      return(FALSE)
+    }, 
+    finally = {TRUE})
 }
 
 lato_is_java_64bit_available <- function() {

@@ -1,6 +1,6 @@
 Package: LanguageToolR
 Title: Provides a Wrapper for the LanguageTool CLI Tool for Spelling, Grammar and Language Checking
-Version: 0.1.4
+Version: 0.2.0
 Authors@R: c(
     person(given = "Clemens",
              family = "Schmid",
@@ -21,7 +21,7 @@ Depends: R (>= 3.5.0)
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.2
 Imports:
     rjson,
     tibble,
