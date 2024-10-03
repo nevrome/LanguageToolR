@@ -11,7 +11,7 @@
 
 :heavy_exclamation_mark: We're not part of the LanguageTool team. This is an unofficial interface.
 
-We only tested with LanguageTool **5.9**, but it might as well work with other versions.
+We only tested with LanguageTool **v6.5**, but it will work as well with other versions, if more obscure command line options are avoided.
 
 ## Installation
 
@@ -29,6 +29,7 @@ remotes::install_github("nevrome/LanguageToolR")
 LanguageToolR::lato_quick_setup()
 ```
 
+This will install the currently supported version (see above).
 
 ## Usecase
 
