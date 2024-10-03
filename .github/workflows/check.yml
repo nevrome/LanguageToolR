@@ -34,7 +34,7 @@ jobs:
         
       - name: Cache LanguageTool
         id: cache-lato
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/LanguageTool-*
           key: ${{ runner.os }}-${{ hashFiles('R/install_languagetool.R') }}-lato
