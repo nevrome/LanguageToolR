@@ -6,8 +6,8 @@
 #' an easy option to automatically download LanguageTool.
 #'
 #' @param x Character vector. Text to analyse
-#' @param input_file Character. File to analyse (instead of x)
-#' @param input_directory Character. Directory with files to analyse (instead of x). 
+#' @param input_file Path. File to analyse (instead of x)
+#' @param input_directory Path. Directory with files to analyse (instead of x). 
 #' Maybe recursive = TRUE is necessary 
 #' @param recursive Logical. Work recursively on directory, not on a single file
 #' @param executable Character. Path to the languagetool executable on your system
@@ -38,25 +38,30 @@
 #' @param version Logical. Print LanguageTool version number
 #' @param apply Logical. Automatically apply suggestions if available, printing result. 
 #' NOTE: only use with very robust rules, as this will otherwise introduce new errors
-#' @param rule_file Character. Use an additional grammar file; if the filename 
+#' @param rule_file Path. Use an additional grammar file; if the filename 
 #' contains a known language code, it is used in addition of standard rules
-#' @param false_friends_file Character. Use external false friend file to be used 
+#' @param remote_rules_file Path. Configure rules depending on external services 
+#' via a JSON file (optional)
+#' @param false_friends_file Path. Use external false friend file to be used 
 #' along with the built-in rules
-#' @param bitext_rules_file Character. Use external bitext XML rule file (useful only in 
+#' @param bitext_rules_file Path. Use external bitext XML rule file (useful only in 
 #' bitext mode)
-#' @param language_model_directory Character. A directory with e.g. 'en' sub directory 
+#' @param language_model_directory Path. A directory with e.g. 'en' sub directory 
 #' (i.e. a language code) that contains '1grams'...'3grams' sub directories with Lucene 
-#' indexes with ngram occurrence counts; activates the confusion rule if supported
-#' @param word2vec_model_directory Character. A directory with e.g. 'en' sub directory 
-#' (i.e. a language code) that contains final_embeddings.txt and dictionary.txt; 
-#' activates neural network based rules
-#' @param neural_network_model_directory Character. A base directory for various saved 
-#' neural network models
-#' @param fast_text_model_file Character. fasttext language detection model, 
+#' indexes with ngram occurrence counts; activates the confusion rule if supported;
+#' see https://dev.languagetool.org/finding-errors-using-n-gram-data
+#' @param fast_text_model_file Path. fasttext language detection model (optional), 
 #' see https://fasttext.cc/docs/en/language-identification.html
-#' @param fast_text_binary_file Character. fasttext executable, 
+#' @param fast_text_binary_file Path. fasttext executable (optional), 
 #' see https://fasttext.cc/docs/en/support.html
-#' @param path Character. Directory where LanguageTool should be installed.
+#' @param line_by_line Logical. Work on file line by line (for development, 
+#' e.g. inside an IDE)
+#' @param enable_temp_off Logical. Enable all temp_off rules (for testing and 
+#' development)
+#' @param clean_overlapping Logical. Clean overlapping matches (show only the 
+#' highest priority match)
+#' @param level Character. Enable the given level (currently only 'PICKY')
+#' @param path Path. Directory where LanguageTool should be installed.
 #' @param overwrite Logical. Should the user not be asked whether she would like to 
 #' overwrite an already available LanguageTool installation? (Default: FALSE)
 #' @param timeout Integer. Maximum download time in seconds. See ?utils::download.file
@@ -103,13 +108,16 @@ languagetool <- function(
   version = FALSE,
   apply = FALSE,
   rule_file = NA_character_,
+  remote_rules_file = NA_character_,
   false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
-  word2vec_model_directory = NA_character_,
-  neural_network_model_directory = NA_character_,
   fast_text_model_file = NA_character_,
   fast_text_binary_file = NA_character_,
+  line_by_line = FALSE,
+  enable_temp_off = FALSE,
+  clean_overlapping = FALSE,
+  level = NA_character_,
   quiet = FALSE
 ) {
   
@@ -163,13 +171,16 @@ languagetool <- function(
       if (version)                                      " --version",
       if (apply)                                        " --apply",  
       if (!is.na(rule_file))                      paste(" --rulefile", rule_file),
+      if (!is.na(remote_rules_file))              paste(" --remoterules", remote_rules_file),
       if (!is.na(false_friends_file))             paste(" --falsefriends", false_friends_file),
       if (!is.na(bitext_rules_file))              paste(" --bitextrules", bitext_rules_file),
       if (!is.na(language_model_directory))       paste(" --languagemodel", language_model_directory),
-      if (!is.na(word2vec_model_directory))       paste(" --word2vecmodel", word2vec_model_directory),
-      if (!is.na(neural_network_model_directory)) paste(" --neuralnetworkmodel", neural_network_model_directory),
       if (!is.na(fast_text_model_file))           paste(" --fasttextmodel",  fast_text_model_file), 
       if (!is.na(fast_text_binary_file))          paste(" --fasttextbinary", fast_text_binary_file),
+      if (line_by_line)                                 " --line-by-line",
+      if (enable_temp_off)                              " --enable-temp-off",
+      if (clean_overlapping)                            " --clean-overlapping",
+      if (!is.na(level))                          paste(" --level", level),
       # json
       if (!list_languages & !tagger_only & !list_unknown & !apply) " --json",
       # input

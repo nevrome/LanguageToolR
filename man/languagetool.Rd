@@ -37,13 +37,16 @@ languagetool(
   version = FALSE,
   apply = FALSE,
   rule_file = NA_character_,
+  remote_rules_file = NA_character_,
   false_friends_file = NA_character_,
   bitext_rules_file = NA_character_,
   language_model_directory = NA_character_,
-  word2vec_model_directory = NA_character_,
-  neural_network_model_directory = NA_character_,
   fast_text_model_file = NA_character_,
   fast_text_binary_file = NA_character_,
+  line_by_line = FALSE,
+  enable_temp_off = FALSE,
+  clean_overlapping = FALSE,
+  level = NA_character_,
   quiet = FALSE
 )
 
@@ -56,7 +59,7 @@ lato_test_setup(executable = lato_get_default_executable())
 lato_get_default_executable()
 }
 \arguments{
-\item{path}{Character. Directory where LanguageTool should be installed.}
+\item{path}{Path. Directory where LanguageTool should be installed.}
 
 \item{overwrite}{Logical. Should the user not be asked whether she would like to 
 overwrite an already available LanguageTool installation? (Default: FALSE)}
@@ -65,9 +68,9 @@ overwrite an already available LanguageTool installation? (Default: FALSE)}
 
 \item{x}{Character vector. Text to analyse}
 
-\item{input_file}{Character. File to analyse (instead of x)}
+\item{input_file}{Path. File to analyse (instead of x)}
 
-\item{input_directory}{Character. Directory with files to analyse (instead of x). 
+\item{input_directory}{Path. Directory with files to analyse (instead of x). 
 Maybe recursive = TRUE is necessary}
 
 \item{recursive}{Logical. Work recursively on directory, not on a single file}
@@ -119,31 +122,39 @@ see http://languagetool.wikidot.com/checking-translations-bilingual-texts}
 \item{apply}{Logical. Automatically apply suggestions if available, printing result. 
 NOTE: only use with very robust rules, as this will otherwise introduce new errors}
 
-\item{rule_file}{Character. Use an additional grammar file; if the filename 
+\item{rule_file}{Path. Use an additional grammar file; if the filename 
 contains a known language code, it is used in addition of standard rules}
 
-\item{false_friends_file}{Character. Use external false friend file to be used 
+\item{remote_rules_file}{Path. Configure rules depending on external services 
+via a JSON file (optional)}
+
+\item{false_friends_file}{Path. Use external false friend file to be used 
 along with the built-in rules}
 
-\item{bitext_rules_file}{Character. Use external bitext XML rule file (useful only in 
+\item{bitext_rules_file}{Path. Use external bitext XML rule file (useful only in 
 bitext mode)}
 
-\item{language_model_directory}{Character. A directory with e.g. 'en' sub directory 
+\item{language_model_directory}{Path. A directory with e.g. 'en' sub directory 
 (i.e. a language code) that contains '1grams'...'3grams' sub directories with Lucene 
-indexes with ngram occurrence counts; activates the confusion rule if supported}
+indexes with ngram occurrence counts; activates the confusion rule if supported;
+see https://dev.languagetool.org/finding-errors-using-n-gram-data}
 
-\item{word2vec_model_directory}{Character. A directory with e.g. 'en' sub directory 
-(i.e. a language code) that contains final_embeddings.txt and dictionary.txt; 
-activates neural network based rules}
-
-\item{neural_network_model_directory}{Character. A base directory for various saved 
-neural network models}
-
-\item{fast_text_model_file}{Character. fasttext language detection model, 
+\item{fast_text_model_file}{Path. fasttext language detection model (optional), 
 see https://fasttext.cc/docs/en/language-identification.html}
 
-\item{fast_text_binary_file}{Character. fasttext executable, 
+\item{fast_text_binary_file}{Path. fasttext executable (optional), 
 see https://fasttext.cc/docs/en/support.html}
+
+\item{line_by_line}{Logical. Work on file line by line (for development, 
+e.g. inside an IDE)}
+
+\item{enable_temp_off}{Logical. Enable all temp_off rules (for testing and 
+development)}
+
+\item{clean_overlapping}{Logical. Clean overlapping matches (show only the 
+highest priority match)}
+
+\item{level}{Character. Enable the given level (currently only 'PICKY')}
 
 \item{quiet}{Logical. Should the console output of languagetool be displayed or hidden?}
 }
