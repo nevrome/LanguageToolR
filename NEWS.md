@@ -1,7 +1,8 @@
-# LanguageToolR 0.1.5
+# LanguageToolR 0.2.0
 
-* Switched to LanguageToolR 6.5
-* Added a better error message in case java is not installed
+* Switched to LanguageTool v6.5
+* Adjusted mapping of `languagetool` function arguments to command line options accordingly
+* Added a better error message in case JAVA is not installed
 
 # LanguageToolR 0.1.4
 
